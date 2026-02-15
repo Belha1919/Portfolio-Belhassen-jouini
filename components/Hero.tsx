@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { HiArrowDown, HiDownload } from "react-icons/hi";
+import ProfileImage from "./ProfileImage";
 
 export default function Hero() {
   const handleScrollToProjects = () => {
@@ -24,6 +25,14 @@ export default function Hero() {
       <div className="absolute top-1/2 left-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-neon/[0.03] blur-[120px]" />
 
       <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
+        {/* Profile Image with Badge */}
+        <ProfileImage 
+          src="/images/profile.png"
+          alt="Belhassen Jouini - Full-Stack Designer"
+          size={180}
+          badgeText="Hello, I'm Belhassen"
+        />
+
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
