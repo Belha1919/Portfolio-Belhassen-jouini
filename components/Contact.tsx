@@ -31,8 +31,8 @@ const socialLinks = [
 ];
 
 export default function Contact() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const contactSectionRef = useRef(null);
+  const isInView = useInView(contactSectionRef, { once: true, margin: "-100px" });
 
   const [formData, setFormData] = useState({
     name: "",
@@ -54,7 +54,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative py-32" ref={ref}>
+    <section id="contact" className="relative py-32" ref={contactSectionRef}>
       <div className="mx-auto max-w-5xl px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -86,7 +86,7 @@ export default function Contact() {
             }}
             className="flex flex-col gap-6"
           >
-            {socialLinks.map((link, i) => (
+            {socialLinks.map((link, socialLinkIndex) => (
               <motion.a
                 key={link.label}
                 href={link.href}
@@ -96,7 +96,7 @@ export default function Contact() {
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{
                   duration: 0.5,
-                  delay: 0.3 + i * 0.1,
+                  delay: 0.3 + socialLinkIndex * 0.1,
                   ease: [0.25, 0.46, 0.45, 0.94],
                 }}
                 className="hoverable group flex items-center gap-4 rounded-lg border border-white/[0.06] bg-bg-secondary/30 px-5 py-4 transition-all duration-300 hover:border-neon/20 hover:shadow-[0_0_15px_rgba(0,255,136,0.05)]"

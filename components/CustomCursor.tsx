@@ -11,9 +11,9 @@ export default function CustomCursor() {
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
 
-  const springConfig = { damping: 25, stiffness: 300, mass: 0.5 };
-  const smoothX = useSpring(cursorX, springConfig);
-  const smoothY = useSpring(cursorY, springConfig);
+  const cursorSpringConfig = { damping: 25, stiffness: 300, mass: 0.5 };
+  const smoothX = useSpring(cursorX, cursorSpringConfig);
+  const smoothY = useSpring(cursorY, cursorSpringConfig);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -47,15 +47,15 @@ export default function CustomCursor() {
 
     addHoverListeners();
 
-    const observer = new MutationObserver(addHoverListeners);
-    observer.observe(document.body, { childList: true, subtree: true });
+    const domMutationObserver = new MutationObserver(addHoverListeners);
+    domMutationObserver.observe(document.body, { childList: true, subtree: true });
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseenter", handleMouseEnter);
       document.removeEventListener("mouseleave", handleMouseLeave);
       window.removeEventListener("resize", checkMobile);
-      observer.disconnect();
+      domMutationObserver.disconnect();
     };
   }, [cursorX, cursorY, isVisible]);
 

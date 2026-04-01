@@ -5,8 +5,8 @@ import { HiArrowDown, HiDownload } from "react-icons/hi";
 
 export default function Hero() {
   const handleScrollToProjects = () => {
-    const el = document.getElementById("projets");
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    const projectsSectionElement = document.getElementById("projets");
+    if (projectsSectionElement) projectsSectionElement.scrollIntoView({ behavior: "smooth" });
   };
 
   return (

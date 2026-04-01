@@ -5,21 +5,21 @@ import Lenis from "lenis";
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    const lenis = new Lenis({
+    const lenisInstance = new Lenis({
       duration: 1.2,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      easing: (scrollProgress: number) => Math.min(1, 1.001 - Math.pow(2, -10 * scrollProgress)),
       touchMultiplier: 2,
     });
 
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
+    function animationFrameCallback(timestamp: number) {
+      lenisInstance.raf(timestamp);
+      requestAnimationFrame(animationFrameCallback);
     }
 
-    requestAnimationFrame(raf);
+    requestAnimationFrame(animationFrameCallback);
 
     return () => {
-      lenis.destroy();
+      lenisInstance.destroy();
     };
   }, []);
 

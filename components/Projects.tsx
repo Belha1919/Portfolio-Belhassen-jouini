@@ -54,12 +54,12 @@ const projects: Project[] = [
 ];
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const cardRef = useRef(null);
+  const isInView = useInView(cardRef, { once: true, margin: "-80px" });
 
   return (
     <motion.div
-      ref={ref}
+      ref={cardRef}
       initial={{ opacity: 0, y: 40 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{
@@ -121,11 +121,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 }
 
 export default function Projects() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const projectsSectionRef = useRef(null);
+  const isInView = useInView(projectsSectionRef, { once: true, margin: "-100px" });
 
   return (
-    <section id="projets" className="relative min-h-screen py-32" ref={ref}>
+    <section id="projets" className="relative min-h-screen py-32" ref={projectsSectionRef}>
       <div className="mx-auto max-w-6xl px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -142,8 +142,8 @@ export default function Projects() {
         </motion.div>
 
         <div className="grid gap-8 md:grid-cols-2">
-          {projects.map((project, i) => (
-            <ProjectCard key={project.title} project={project} index={i} />
+          {projects.map((project, projectIndex) => (
+            <ProjectCard key={project.title} project={project} index={projectIndex} />
           ))}
         </div>
       </div>

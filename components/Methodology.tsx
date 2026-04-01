@@ -45,7 +45,7 @@ function TimelineStep({
 }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
-  const isLeft = index % 2 === 0;
+  const isLeftAligned = index % 2 === 0;
 
   return (
     <motion.div
@@ -58,13 +58,13 @@ function TimelineStep({
         ease: [0.25, 0.46, 0.45, 0.94],
       }}
       className={`relative flex items-center ${
-        isLeft ? "md:flex-row" : "md:flex-row-reverse"
+        isLeftAligned ? "md:flex-row" : "md:flex-row-reverse"
       } flex-row`}
     >
       {/* Content */}
       <div
         className={`w-full pl-12 md:w-1/2 md:pl-0 ${
-          isLeft ? "md:pr-16 md:text-right" : "md:pl-16 md:text-left"
+          isLeftAligned ? "md:pr-16 md:text-right" : "md:pl-16 md:text-left"
         }`}
       >
         <span className="mb-2 block text-sm font-medium text-neon">
@@ -93,12 +93,12 @@ function TimelineStep({
 }
 
 export default function Methodology() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const timelineContainerRef = useRef<HTMLDivElement>(null);
+  const methodologySectionRef = useRef(null);
+  const isInView = useInView(methodologySectionRef, { once: true, margin: "-100px" });
 
   const { scrollYProgress } = useScroll({
-    target: containerRef,
+    target: timelineContainerRef,
     offset: ["start center", "end center"],
   });
 
@@ -108,7 +108,7 @@ export default function Methodology() {
     <section
       id="methodologie"
       className="relative min-h-screen py-32"
-      ref={sectionRef}
+      ref={methodologySectionRef}
     >
       <div className="mx-auto max-w-5xl px-6">
         <motion.div
@@ -125,7 +125,7 @@ export default function Methodology() {
           </h2>
         </motion.div>
 
-        <div ref={containerRef} className="relative">
+        <div ref={timelineContainerRef} className="relative">
           {/* Vertical line - mobile: left, desktop: center */}
           <div className="absolute top-0 left-4 h-full w-px bg-white/[0.06] md:left-1/2 md:-translate-x-1/2">
             <motion.div
@@ -135,8 +135,8 @@ export default function Methodology() {
           </div>
 
           <div className="flex flex-col gap-16">
-            {steps.map((step, i) => (
-              <TimelineStep key={step.number} step={step} index={i} />
+            {steps.map((step, stepIndex) => (
+              <TimelineStep key={step.number} step={step} index={stepIndex} />
             ))}
           </div>
         </div>

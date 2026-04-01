@@ -62,14 +62,14 @@ function SkillCard({
 }
 
 export default function About() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const aboutSectionRef = useRef(null);
+  const isInView = useInView(aboutSectionRef, { once: true, margin: "-100px" });
 
   return (
     <section
       id="a-propos"
       className="relative min-h-screen py-32"
-      ref={ref}
+      ref={aboutSectionRef}
     >
       <div className="mx-auto max-w-6xl px-6">
         {/* Section header */}
@@ -106,8 +106,8 @@ export default function About() {
               Design
             </h3>
             <div className="flex flex-col gap-3">
-              {designSkills.map((skill, i) => (
-                <SkillCard key={skill.label} {...skill} index={i} />
+              {designSkills.map((skill, skillIndex) => (
+                <SkillCard key={skill.label} {...skill} index={skillIndex} />
               ))}
             </div>
           </motion.div>
@@ -122,8 +122,8 @@ export default function About() {
               Développement
             </h3>
             <div className="flex flex-col gap-3">
-              {devSkills.map((skill, i) => (
-                <SkillCard key={skill.label} {...skill} index={i} />
+              {devSkills.map((skill, skillIndex) => (
+                <SkillCard key={skill.label} {...skill} index={skillIndex} />
               ))}
             </div>
           </motion.div>

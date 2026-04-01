@@ -23,9 +23,9 @@ export default function Navbar() {
 
       const sections = ["home", "a-propos", "projets", "methodologie", "contact"];
       for (const section of sections.reverse()) {
-        const el = document.getElementById(section);
-        if (el) {
-          const rect = el.getBoundingClientRect();
+        const sectionElement = document.getElementById(section);
+        if (sectionElement) {
+          const rect = sectionElement.getBoundingClientRect();
           if (rect.top <= 150) {
             setActiveSection(section);
             break;
@@ -40,9 +40,9 @@ export default function Navbar() {
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
+    const targetSectionElement = document.querySelector(href);
+    if (targetSectionElement) {
+      targetSectionElement.scrollIntoView({ behavior: "smooth" });
     }
     setMobileMenuOpen(false);
   };
