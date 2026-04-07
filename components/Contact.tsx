@@ -6,10 +6,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+
 import { HiOutlineMail } from "react-icons/hi";
-import { FiGithub, FiLinkedin } from "react-icons/fi";
+import { FiGithub, FiLinkedin, FiPhone } from "react-icons/fi";
 
 const socialLinks = [
+  {
+    icon: FiPhone,
+    label: "Téléphone",
+    href: "tel:0768325194",
+    display: "0768325194",
+  },
   {
     icon: HiOutlineMail,
     label: "Email",
@@ -19,14 +26,14 @@ const socialLinks = [
   {
     icon: FiLinkedin,
     label: "LinkedIn",
-    href: "https://linkedin.com/in/belhassenjouini",
-    display: "linkedin.com/in/belhassenjouini",
+    href: "https://linkedin.com/in/belhassen-jouini",
+    display: "linkedin.com/in/belhassen-jouini",
   },
   {
     icon: FiGithub,
     label: "GitHub",
-    href: "https://github.com/belhassenjouini",
-    display: "github.com/belhassenjouini",
+    href: "https://github.com/Belha1919",
+    display: "github.com/Belha1919",
   },
 ];
 
@@ -124,8 +131,8 @@ export default function Contact() {
               <motion.a
                 key={link.label}
                 href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
+                target={link.href.startsWith('http') ? "_blank" : undefined}
+                rel={link.href.startsWith('http') ? "noopener noreferrer" : undefined}
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{
@@ -133,9 +140,13 @@ export default function Contact() {
                   delay: 0.3 + i * 0.1,
                   ease: [0.25, 0.46, 0.45, 0.94],
                 }}
-                className="hoverable group flex items-center gap-4 rounded-lg border border-white/[0.06] bg-bg-secondary/30 px-5 py-4 transition-all duration-300 hover:border-neon/20 hover:shadow-[0_0_15px_rgba(0,255,136,0.05)]"
+                className="hoverable group flex items-center gap-4 rounded-lg border border-white/6 bg-bg-secondary/30 px-5 py-4 transition-all duration-300 hover:border-neon/20 hover:shadow-[0_0_15px_rgba(0,255,136,0.05)]"
               >
-                <link.icon className="h-5 w-5 text-neon/70 transition-colors group-hover:text-neon" />
+                {link.icon ? (
+                  <link.icon className="h-5 w-5 text-neon/70 transition-colors group-hover:text-neon" />
+                ) : (
+                  <span className="h-5 w-5 inline-block" />
+                )}
                 <div>
                   <p className="text-sm font-medium text-text-primary">
                     {link.label}
