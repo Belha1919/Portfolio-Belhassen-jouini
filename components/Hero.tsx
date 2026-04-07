@@ -30,7 +30,7 @@ export default function Hero() {
           src="/images/profile.png"
           alt="Belhassen Jouini - Full-Stack Designer"
           size={180}
-          badgeText="Hello, I'm Belhassen"
+          badgeText="Bonjour, je suis Belhassen"
         />
 
         <motion.p

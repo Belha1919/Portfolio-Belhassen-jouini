@@ -41,16 +41,50 @@ export default function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setIsSubmitting(false);
-    setSubmitted(true);
-    setFormData({ name: "", email: "", message: "" });
-    setTimeout(() => setSubmitted(false), 3000);
+    setError("");
+
+    try {
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      let payload: { error?: string; message?: string } | null = null;
+
+      try {
+        payload = await response.json();
+      } catch {
+        payload = null;
+      }
+
+      if (!response.ok) {
+        setError(
+          payload?.error ||
+            payload?.message ||
+            "Erreur lors de l'envoi du message. Veuillez reessayer."
+        );
+        return;
+      }
+
+      setSubmitted(true);
+      setFormData({ name: "", email: "", message: "" });
+      setTimeout(() => setSubmitted(false), 3000);
+    } catch (err) {
+      const errorMessage =
+        err instanceof Error ? err.message : "Erreur lors de l'envoi du message";
+      setError(errorMessage);
+      console.error("Erreur:", err);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -69,7 +103,7 @@ export default function Contact() {
             Travaillons ensemble
           </h2>
           <p className="mx-auto max-w-md text-text-secondary">
-            Un projet en tête ? N&apos;hésitez pas à me contacter pour en
+            Vous avez un projet ? N&apos;hésitez pas à me contacter pour en
             discuter.
           </p>
         </motion.div>
@@ -124,6 +158,26 @@ export default function Contact() {
             }}
             className="flex flex-col gap-5"
           >
+            {error && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-500"
+              >
+                {error}
+              </motion.div>
+            )}
+
+            {submitted && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="rounded-lg border border-neon/20 bg-neon/10 px-4 py-3 text-sm text-neon"
+              >
+                ✓ Message envoyé avec succès ! Je vous répondrai bientôt.
+              </motion.div>
+            )}
+
             <div className="space-y-2">
               <Label htmlFor="name" className="text-sm text-text-secondary">
                 Nom

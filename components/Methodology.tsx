@@ -6,31 +6,31 @@ import { useRef } from "react";
 const steps = [
   {
     number: "01",
-    title: "Discovery",
+    title: "Découverte",
     description:
       "Analyse approfondie des besoins, du marché et des utilisateurs cibles. Définition des objectifs et des contraintes du projet.",
   },
   {
     number: "02",
-    title: "UX Strategy",
+    title: "Stratégie UX",
     description:
       "Architecture de l'information, parcours utilisateurs et wireframes. Validation des hypothèses par des tests rapides.",
   },
   {
     number: "03",
-    title: "UI Design",
+    title: "Design UI",
     description:
       "Création de l'identité visuelle, du design system et des maquettes haute fidélité. Prototypage interactif.",
   },
   {
     number: "04",
-    title: "Development",
+    title: "Développement",
     description:
       "Développement front-end et back-end avec les technologies modernes. Intégration pixel-perfect et code maintenable.",
   },
   {
     number: "05",
-    title: "Optimization",
+    title: "Optimisation",
     description:
       "Tests de performance, accessibilité et SEO. Itérations basées sur les retours utilisateurs et les métriques.",
   },
