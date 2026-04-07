@@ -6,7 +6,8 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 export default function CustomCursor() {
   const [isHovering, setIsHovering] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const [isMobile, setIsMobile] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
@@ -16,6 +17,8 @@ export default function CustomCursor() {
   const smoothY = useSpring(cursorY, springConfig);
 
   useEffect(() => {
+    setIsClient(true);
+    
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
@@ -59,7 +62,9 @@ export default function CustomCursor() {
     };
   }, [cursorX, cursorY, isVisible]);
 
-  if (isMobile) return null;
+  if (!isClient || isMobile) {
+    return null;
+  }
 
   return (
     <motion.div

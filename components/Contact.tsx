@@ -13,8 +13,8 @@ const socialLinks = [
   {
     icon: HiOutlineMail,
     label: "Email",
-    href: "mailto:contact@belhassenjouini.com",
-    display: "contact@belhassenjouini.com",
+    href: "mailto:belhassen.jouini1919@gmail.com",
+    display: "belhassen.jouini1919@gmail.com",
   },
   {
     icon: FiLinkedin,
