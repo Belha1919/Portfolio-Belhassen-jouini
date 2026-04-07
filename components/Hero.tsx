@@ -28,9 +28,9 @@ export default function Hero() {
         {/* Profile Image with Badge */}
         <ProfileImage 
           src="/images/profile.png"
-          alt="Belhassen Jouini - Full-Stack Designer"
-          size={180}
-          badgeText="Bonjour, je suis Belhassen"
+          alt="Belhassen Jouini - UX/UI – Design System & Front-End Developer"
+          size={200}
+          badgeText="Bonjour"
         />
 
         <motion.p
@@ -39,7 +39,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="mb-4 text-sm font-medium tracking-[0.2em] text-neon uppercase"
         >
-          Full-Stack Designer
+          UX/UI – Design System & Front-End Developer
         </motion.p>
 
         <motion.h1
@@ -77,14 +77,14 @@ export default function Hero() {
         >
           <button
             onClick={handleScrollToProjects}
-            className="hoverable rounded-lg bg-neon px-8 py-3 text-sm font-semibold text-[#0A0A0A] transition-all duration-200 hover:shadow-[0_0_20px_rgba(0,255,136,0.2)]"
+            className="hoverable rounded-full bg-neon px-8 py-3 text-sm font-semibold text-[#0A0A0A] transition-all duration-200 hover:shadow-[0_0_20px_rgba(0,255,136,0.2)]"
           >
             Voir les projets
           </button>
           <a
             href="/cv.pdf"
             download
-            className="hoverable flex items-center gap-2 rounded-lg border border-white/10 px-8 py-3 text-sm font-medium text-text-primary transition-all duration-200 hover:border-white/20 hover:bg-white/[0.03]"
+            className="hoverable flex items-center gap-2 rounded-full border border-white/10 px-8 py-3 text-sm font-medium text-text-primary transition-all duration-200 hover:border-white/20 hover:bg-white/[0.03]"
           >
             <HiDownload className="h-4 w-4" />
             Télécharger CV

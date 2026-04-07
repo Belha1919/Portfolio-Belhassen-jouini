@@ -95,7 +95,7 @@ export default function Navbar() {
           <a
             href="/cv.pdf"
             download
-            className="hoverable flex items-center gap-2 rounded-lg border border-neon/20 bg-neon/10 px-4 py-2 text-sm font-medium text-neon transition-all duration-200 hover:bg-neon/20 hover:shadow-[0_0_15px_rgba(0,255,136,0.15)]"
+            className="hoverable flex items-center gap-2 rounded-full border border-neon/20 bg-neon/10 px-4 py-2 text-sm font-medium text-neon transition-all duration-200 hover:bg-neon/20 hover:shadow-[0_0_15px_rgba(0,255,136,0.15)]"
             title="Télécharger CV"
           >
             <HiDownload className="h-4 w-4" />

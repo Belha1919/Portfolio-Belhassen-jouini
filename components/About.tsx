@@ -53,7 +53,7 @@ function SkillCard({
         delay: index * 0.1,
         ease: [0.25, 0.46, 0.45, 0.94],
       }}
-      className="hoverable group flex items-center gap-3 rounded-lg border border-white/[0.06] bg-bg-secondary/50 px-4 py-3 transition-all duration-300 hover:border-neon/20 hover:shadow-[0_0_15px_rgba(0,255,136,0.05)]"
+      className="hoverable group flex items-center gap-3 rounded-full border border-white/[0.06] bg-bg-secondary/50 px-4 py-3 transition-all duration-300 hover:border-neon/20 hover:shadow-[0_0_15px_rgba(0,255,136,0.05)]"
     >
       <Icon className="h-5 w-5 text-neon/70 transition-colors group-hover:text-neon" />
       <span className="text-sm text-text-primary">{label}</span>
