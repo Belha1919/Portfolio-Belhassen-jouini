@@ -51,23 +51,8 @@ export default function Hero() {
           Belhassen Jouini
         </motion.h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="mb-4 text-lg font-light text-text-secondary md:text-xl"
-        >
-          UX, UI &amp; Développement
-        </motion.p>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="mx-auto mb-10 max-w-lg text-base text-text-secondary/80"
-        >
-          Je conçois et développe des expériences digitales performantes.
-        </motion.p>
+
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
