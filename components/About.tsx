@@ -86,11 +86,14 @@ export default function About() {
             Qui suis-je ?
           </h2>
           <p className="max-w-2xl text-base leading-relaxed text-text-secondary">
-            Designer et développeur full-stack, je combine expertise UX/UI et
-            compétences techniques pour créer des produits digitaux cohérents,
-            performants et centrés sur l&apos;utilisateur. Mon approche allie
-            rigueur méthodologique, sensibilité esthétique et maîtrise du code
-            pour livrer des expériences abouties de bout en bout.
+            Diplômé en design numérique, spécialisé en UX/UI, je conçois des
+            interfaces centrées utilisateur et des Design Systems scalables.
+            Actuellement alternant UX/UI Designer chez BNP Paribas Asset
+            Management, je participe à la conception de composants UI avec
+            Storybook et à leur intégration front-end. Fort d&apos;expériences en
+            environnement corporate, je combine vision produit, rigueur design
+            et exécution technique pour créer des expériences digitales
+            cohérentes, performantes et maintenables.
           </p>
         </motion.div>
 
