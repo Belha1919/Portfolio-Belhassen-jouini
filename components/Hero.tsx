@@ -67,7 +67,7 @@ export default function Hero() {
             Voir les projets
           </button>
           <a
-            href="/cv.pdf"
+            href="/images/Belhassen%20Jouini%20cv.pdf"
             download
             className="hoverable flex items-center gap-2 rounded-full border border-white/10 px-8 py-3 text-sm font-medium text-text-primary transition-all duration-200 hover:border-white/20 hover:bg-white/[0.03]"
           >

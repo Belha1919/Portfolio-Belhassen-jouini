@@ -14,9 +14,9 @@ import {
   SiNextdotjs,
   SiTypescript,
   SiTailwindcss,
-  SiFramer,
+  SiAngular,
+  SiReact,
 } from "react-icons/si";
-import { HiOutlineLink } from "react-icons/hi";
 
 const designSkills = [
   { icon: HiOutlineSearch, label: "UX Research" },
@@ -30,8 +30,8 @@ const devSkills = [
   { icon: SiNextdotjs, label: "Next.js" },
   { icon: SiTypescript, label: "TypeScript" },
   { icon: SiTailwindcss, label: "Tailwind" },
-  { icon: SiFramer, label: "Framer Motion" },
-  { icon: HiOutlineLink, label: "Intégration API" },
+  { icon: SiAngular, label: "Angular" },
+  { icon: SiReact, label: "React" },
 ];
 
 function SkillCard({

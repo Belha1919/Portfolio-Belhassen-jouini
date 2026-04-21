@@ -39,7 +39,7 @@ La Solution (L'ADN de MAX)
     stack: ["Next.js", "Tailwind CSS", "UX/UI Design"],
     role: "UX Research, UI Design, Tests Utilisateurs",
     image: "/images/max mockup.jpg",
-    link: "#",
+    link: "https://www.figma.com/design/PVvH57YuSwM8WdTD8OXZAR/MAX?node-id=2-2&t=kBP4DGmQBDEf0iJ3-1",
   },
   {
     title: "TANIT – E-commerce & Challenge Communautaire",
@@ -66,7 +66,7 @@ Navigation Fluide : Création d'une structure front-end solide permettant de nav
     stack: ["UX/UI Design", "Front-end Development", "E-commerce"],
     role: "UX/UI Designer & Développeur Front-end",
     image: "/images/tanit mockup.jpg",
-    link: "#",
+    link: "https://www.figma.com/design/E1ih0VrSYmxw5LR87S3Dk6/Tanit-site-web?node-id=0-1&t=kFBbys6Qa1BLyprN-1",
   },
 ];
 
@@ -234,6 +234,17 @@ export default function Projects() {
                 <p className="mt-2 text-sm text-text-secondary/80">
                   {selectedProject.role}
                 </p>
+                {selectedProject.link !== "#" ? (
+                  <a
+                    href={selectedProject.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-3 inline-flex items-center gap-2 rounded-md border border-neon/35 px-3 py-1.5 text-sm text-neon transition-colors hover:border-neon hover:bg-neon/10"
+                  >
+                    Voir sur Figma
+                    <HiArrowUpRight className="h-4 w-4" />
+                  </a>
+                ) : null}
               </div>
               <button
                 type="button"
