@@ -5,9 +5,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { HiDownload } from "react-icons/hi";
 
 const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "Projets", href: "#projets" },
+  { label: "Accueil", href: "#home" },
   { label: "À propos", href: "#a-propos" },
+  { label: "Projets", href: "#projets" },
   { label: "Méthodologie", href: "#methodologie" },
   { label: "Contact", href: "#contact" },
 ];
@@ -93,9 +93,10 @@ export default function Navbar() {
           ))}
 
           <a
-            href="/cv.pdf"
+            href="/images/Belhassen%20Jouini%20cv.pdf"
             download
-            className="hoverable flex items-center gap-2 rounded-lg border border-neon/20 bg-neon/10 px-4 py-2 text-sm font-medium text-neon transition-all duration-200 hover:bg-neon/20 hover:shadow-[0_0_15px_rgba(0,255,136,0.15)]"
+            className="hoverable flex items-center gap-2 rounded-full border border-neon/20 bg-neon/10 px-4 py-2 text-sm font-medium text-neon transition-all duration-200 hover:bg-neon/20 hover:shadow-[0_0_15px_rgba(0,255,136,0.15)]"
+            title="Télécharger CV"
           >
             <HiDownload className="h-4 w-4" />
             Télécharger CV
@@ -149,7 +150,7 @@ export default function Navbar() {
                 </a>
               ))}
               <a
-                href="/cv.pdf"
+                href="/images/Belhassen%20Jouini%20cv.pdf"
                 download
                 className="flex items-center gap-2 text-sm font-medium text-neon"
               >

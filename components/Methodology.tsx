@@ -6,33 +6,39 @@ import { useRef } from "react";
 const steps = [
   {
     number: "01",
-    title: "Discovery",
+    title: "UX Research",
     description:
-      "Analyse approfondie des besoins, du marché et des utilisateurs cibles. Définition des objectifs et des contraintes du projet.",
+      "Analyse des besoins, du contexte, du marché et des utilisateurs pour cadrer les objectifs du projet.",
   },
   {
     number: "02",
-    title: "UX Strategy",
+    title: "UI Design",
     description:
-      "Architecture de l'information, parcours utilisateurs et wireframes. Validation des hypothèses par des tests rapides.",
+      "Conception de l'interface, du design system et des maquettes haute fidélité pour préparer l'implémentation.",
   },
   {
     number: "03",
-    title: "UI Design",
+    title: "Test prototype",
     description:
-      "Création de l'identité visuelle, du design system et des maquettes haute fidélité. Prototypage interactif.",
+      "Prototypage interactif et premiers tests pour valider les parcours, les interactions et les choix de design.",
   },
   {
     number: "04",
-    title: "Development",
+    title: "Développement front-end",
     description:
-      "Développement front-end et back-end avec les technologies modernes. Intégration pixel-perfect et code maintenable.",
+      "Intégration front-end du produit en respectant le design, la qualité du code et la réactivité de l'interface.",
   },
   {
     number: "05",
-    title: "Optimization",
+    title: "Optimisation",
     description:
-      "Tests de performance, accessibilité et SEO. Itérations basées sur les retours utilisateurs et les métriques.",
+      "Amélioration des performances, de l'accessibilité et de la qualité globale avant validation finale.",
+  },
+  {
+    number: "06",
+    title: "Tests utilisateurs",
+    description:
+      "Tests finaux avec les utilisateurs pour collecter les retours, corriger les derniers points et confirmer l'expérience.",
   },
 ];
 

@@ -14,9 +14,9 @@ import {
   SiNextdotjs,
   SiTypescript,
   SiTailwindcss,
-  SiFramer,
+  SiAngular,
+  SiReact,
 } from "react-icons/si";
-import { HiOutlineLink } from "react-icons/hi";
 
 const designSkills = [
   { icon: HiOutlineSearch, label: "UX Research" },
@@ -30,8 +30,8 @@ const devSkills = [
   { icon: SiNextdotjs, label: "Next.js" },
   { icon: SiTypescript, label: "TypeScript" },
   { icon: SiTailwindcss, label: "Tailwind" },
-  { icon: SiFramer, label: "Framer Motion" },
-  { icon: HiOutlineLink, label: "Intégration API" },
+  { icon: SiAngular, label: "Angular" },
+  { icon: SiReact, label: "React" },
 ];
 
 function SkillCard({
@@ -53,7 +53,7 @@ function SkillCard({
         delay: index * 0.1,
         ease: [0.25, 0.46, 0.45, 0.94],
       }}
-      className="hoverable group flex items-center gap-3 rounded-lg border border-white/[0.06] bg-bg-secondary/50 px-4 py-3 transition-all duration-300 hover:border-neon/20 hover:shadow-[0_0_15px_rgba(0,255,136,0.05)]"
+      className="hoverable group flex items-center gap-3 rounded-full border border-white/[0.06] bg-bg-secondary/50 px-4 py-3 transition-all duration-300 hover:border-neon/20 hover:shadow-[0_0_15px_rgba(0,255,136,0.05)]"
     >
       <Icon className="h-5 w-5 text-neon/70 transition-colors group-hover:text-neon" />
       <span className="text-sm text-text-primary">{label}</span>
@@ -66,11 +66,7 @@ export default function About() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section
-      id="a-propos"
-      className="relative min-h-screen py-32"
-      ref={ref}
-    >
+    <section id="a-propos" className="relative min-h-screen py-32" ref={ref}>
       <div className="mx-auto max-w-6xl px-6">
         {/* Section header */}
         <motion.div
@@ -86,11 +82,12 @@ export default function About() {
             Qui suis-je ?
           </h2>
           <p className="max-w-2xl text-base leading-relaxed text-text-secondary">
-            Designer et développeur full-stack, je combine expertise UX/UI et
-            compétences techniques pour créer des produits digitaux cohérents,
-            performants et centrés sur l&apos;utilisateur. Mon approche allie
-            rigueur méthodologique, sensibilité esthétique et maîtrise du code
-            pour livrer des expériences abouties de bout en bout.
+            Designer numérique spécialisé en UX/UI, je me concentre sur la
+            création de systèmes de design robustes et évolutifs. Je fais le
+            pont entre le design et l'intégration front-end pour transformer des
+            problématiques complexes en interfaces fluides. Mon objectif est de
+            livrer des produits digitaux qui allient exigence esthétique et
+            rigueur technique.
           </p>
         </motion.div>
 
@@ -100,7 +97,11 @@ export default function About() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{
+              duration: 0.8,
+              delay: 0.2,
+              ease: [0.25, 0.46, 0.45, 0.94],
+            }}
           >
             <h3 className="mb-6 text-lg font-semibold text-text-primary">
               Design
@@ -116,7 +117,11 @@ export default function About() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{
+              duration: 0.8,
+              delay: 0.4,
+              ease: [0.25, 0.46, 0.45, 0.94],
+            }}
           >
             <h3 className="mb-6 text-lg font-semibold text-text-primary">
               Développement

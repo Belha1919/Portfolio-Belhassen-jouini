@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { HiArrowDown, HiDownload } from "react-icons/hi";
+import { HiArrowDown } from "react-icons/hi";
+import ProfileImage from "./ProfileImage";
 
 export default function Hero() {
   const handleScrollToProjects = () => {
@@ -24,13 +25,21 @@ export default function Hero() {
       <div className="absolute top-1/2 left-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-neon/[0.03] blur-[120px]" />
 
       <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
+        {/* Profile Image with Badge */}
+        <ProfileImage 
+          src="/images/profile.png"
+          alt="Belhassen Jouini - UX/UI – Design System & Front-End Developer"
+          size={200}
+          badgeText="Bonjour"
+        />
+
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="mb-4 text-sm font-medium tracking-[0.2em] text-neon uppercase"
         >
-          Full-Stack Designer
+          UX/UI – Design System & Front-End Developer
         </motion.p>
 
         <motion.h1
@@ -42,23 +51,8 @@ export default function Hero() {
           Belhassen Jouini
         </motion.h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="mb-4 text-lg font-light text-text-secondary md:text-xl"
-        >
-          UX, UI &amp; Développement
-        </motion.p>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="mx-auto mb-10 max-w-lg text-base text-text-secondary/80"
-        >
-          Je conçois et développe des expériences digitales performantes.
-        </motion.p>
+
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -68,18 +62,10 @@ export default function Hero() {
         >
           <button
             onClick={handleScrollToProjects}
-            className="hoverable rounded-lg bg-neon px-8 py-3 text-sm font-semibold text-[#0A0A0A] transition-all duration-200 hover:shadow-[0_0_20px_rgba(0,255,136,0.2)]"
+            className="hoverable rounded-full bg-neon px-8 py-3 text-sm font-semibold text-[#0A0A0A] transition-all duration-200 hover:shadow-[0_0_20px_rgba(0,255,136,0.2)]"
           >
             Voir les projets
           </button>
-          <a
-            href="/cv.pdf"
-            download
-            className="hoverable flex items-center gap-2 rounded-lg border border-white/10 px-8 py-3 text-sm font-medium text-text-primary transition-all duration-200 hover:border-white/20 hover:bg-white/[0.03]"
-          >
-            <HiDownload className="h-4 w-4" />
-            Télécharger CV
-          </a>
         </motion.div>
       </div>
 

@@ -6,27 +6,34 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+
 import { HiOutlineMail } from "react-icons/hi";
-import { FiGithub, FiLinkedin } from "react-icons/fi";
+import { FiGithub, FiLinkedin, FiPhone } from "react-icons/fi";
 
 const socialLinks = [
   {
+    icon: FiPhone,
+    label: "Téléphone",
+    href: "tel:0768325194",
+    display: "0768325194",
+  },
+  {
     icon: HiOutlineMail,
     label: "Email",
-    href: "mailto:contact@belhassenjouini.com",
-    display: "contact@belhassenjouini.com",
+    href: "mailto:belhassen.jouini1919@gmail.com",
+    display: "belhassen.jouini1919@gmail.com",
   },
   {
     icon: FiLinkedin,
     label: "LinkedIn",
-    href: "https://linkedin.com/in/belhassenjouini",
-    display: "linkedin.com/in/belhassenjouini",
+    href: "https://linkedin.com/in/belhassen-jouini",
+    display: "linkedin.com/in/belhassen-jouini",
   },
   {
     icon: FiGithub,
     label: "GitHub",
-    href: "https://github.com/belhassenjouini",
-    display: "github.com/belhassenjouini",
+    href: "https://github.com/Belha1919",
+    display: "github.com/Belha1919",
   },
 ];
 
@@ -41,16 +48,50 @@ export default function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setIsSubmitting(false);
-    setSubmitted(true);
-    setFormData({ name: "", email: "", message: "" });
-    setTimeout(() => setSubmitted(false), 3000);
+    setError("");
+
+    try {
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      let payload: { error?: string; message?: string } | null = null;
+
+      try {
+        payload = await response.json();
+      } catch {
+        payload = null;
+      }
+
+      if (!response.ok) {
+        setError(
+          payload?.error ||
+            payload?.message ||
+            "Erreur lors de l'envoi du message. Veuillez reessayer."
+        );
+        return;
+      }
+
+      setSubmitted(true);
+      setFormData({ name: "", email: "", message: "" });
+      setTimeout(() => setSubmitted(false), 3000);
+    } catch (err) {
+      const errorMessage =
+        err instanceof Error ? err.message : "Erreur lors de l'envoi du message";
+      setError(errorMessage);
+      console.error("Erreur:", err);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -69,7 +110,7 @@ export default function Contact() {
             Travaillons ensemble
           </h2>
           <p className="mx-auto max-w-md text-text-secondary">
-            Un projet en tête ? N&apos;hésitez pas à me contacter pour en
+            Vous avez un projet ? N&apos;hésitez pas à me contacter pour en
             discuter.
           </p>
         </motion.div>
@@ -90,8 +131,8 @@ export default function Contact() {
               <motion.a
                 key={link.label}
                 href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
+                target={link.href.startsWith('http') ? "_blank" : undefined}
+                rel={link.href.startsWith('http') ? "noopener noreferrer" : undefined}
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{
@@ -99,9 +140,13 @@ export default function Contact() {
                   delay: 0.3 + i * 0.1,
                   ease: [0.25, 0.46, 0.45, 0.94],
                 }}
-                className="hoverable group flex items-center gap-4 rounded-lg border border-white/[0.06] bg-bg-secondary/30 px-5 py-4 transition-all duration-300 hover:border-neon/20 hover:shadow-[0_0_15px_rgba(0,255,136,0.05)]"
+                className="hoverable group flex items-center gap-4 rounded-full border border-white/6 bg-bg-secondary/30 px-5 py-4 transition-all duration-300 hover:border-neon/20 hover:shadow-[0_0_15px_rgba(0,255,136,0.05)]"
               >
-                <link.icon className="h-5 w-5 text-neon/70 transition-colors group-hover:text-neon" />
+                {link.icon ? (
+                  <link.icon className="h-5 w-5 text-neon/70 transition-colors group-hover:text-neon" />
+                ) : (
+                  <span className="h-5 w-5 inline-block" />
+                )}
                 <div>
                   <p className="text-sm font-medium text-text-primary">
                     {link.label}
@@ -124,6 +169,26 @@ export default function Contact() {
             }}
             className="flex flex-col gap-5"
           >
+            {error && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="rounded-full border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-500"
+              >
+                {error}
+              </motion.div>
+            )}
+
+            {submitted && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="rounded-full border border-neon/20 bg-neon/10 px-4 py-3 text-sm text-neon"
+              >
+                ✓ Message envoyé avec succès ! Je vous répondrai bientôt.
+              </motion.div>
+            )}
+
             <div className="space-y-2">
               <Label htmlFor="name" className="text-sm text-text-secondary">
                 Nom
@@ -170,14 +235,14 @@ export default function Contact() {
                 }
                 required
                 rows={5}
-                className="resize-none border-white/[0.08] bg-bg-secondary/50 text-text-primary placeholder:text-text-secondary/40 focus:border-neon/30 focus:ring-neon/20"
+                className="resize-none  border-white/[0.08] bg-bg-secondary/50 text-text-primary placeholder:text-text-secondary/40 focus:border-neon/30 focus:ring-neon/20"
               />
             </div>
 
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="hoverable mt-2 w-full bg-neon font-semibold text-[#0A0A0A] transition-all duration-200 hover:bg-neon/90 hover:shadow-[0_0_20px_rgba(0,255,136,0.2)] disabled:opacity-50"
+              className="hoverable mt-2 w-full rounded-full bg-neon font-semibold text-[#0A0A0A] transition-all duration-200 hover:bg-neon/90 hover:shadow-[0_0_20px_rgba(0,255,136,0.2)] disabled:opacity-50"
             >
               {isSubmitting
                 ? "Envoi en cours..."
