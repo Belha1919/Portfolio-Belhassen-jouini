@@ -66,11 +66,7 @@ export default function About() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section
-      id="a-propos"
-      className="relative min-h-screen py-32"
-      ref={ref}
-    >
+    <section id="a-propos" className="relative min-h-screen py-32" ref={ref}>
       <div className="mx-auto max-w-6xl px-6">
         {/* Section header */}
         <motion.div
@@ -86,14 +82,12 @@ export default function About() {
             Qui suis-je ?
           </h2>
           <p className="max-w-2xl text-base leading-relaxed text-text-secondary">
-            Diplômé en design numérique, spécialisé en UX/UI, je conçois des
-            interfaces centrées utilisateur et des Design Systems scalables.
-            Actuellement alternant UX/UI Designer chez BNP Paribas Asset
-            Management, je participe à la conception de composants UI avec
-            Storybook et à leur intégration front-end. Fort d&apos;expériences en
-            environnement corporate, je combine vision produit, rigueur design
-            et exécution technique pour créer des expériences digitales
-            cohérentes, performantes et maintenables.
+            Designer numérique spécialisé en UX/UI, je me concentre sur la
+            création de systèmes de design robustes et évolutifs. Je fais le
+            pont entre le design et l'intégration front-end pour transformer des
+            problématiques complexes en interfaces fluides. Mon objectif est de
+            livrer des produits digitaux qui allient exigence esthétique et
+            rigueur technique.
           </p>
         </motion.div>
 
@@ -103,7 +97,11 @@ export default function About() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{
+              duration: 0.8,
+              delay: 0.2,
+              ease: [0.25, 0.46, 0.45, 0.94],
+            }}
           >
             <h3 className="mb-6 text-lg font-semibold text-text-primary">
               Design
@@ -119,7 +117,11 @@ export default function About() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{
+              duration: 0.8,
+              delay: 0.4,
+              ease: [0.25, 0.46, 0.45, 0.94],
+            }}
           >
             <h3 className="mb-6 text-lg font-semibold text-text-primary">
               Développement

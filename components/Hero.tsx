@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { HiArrowDown, HiDownload } from "react-icons/hi";
+import { HiArrowDown } from "react-icons/hi";
 import ProfileImage from "./ProfileImage";
 
 export default function Hero() {
@@ -66,14 +66,6 @@ export default function Hero() {
           >
             Voir les projets
           </button>
-          <a
-            href="/images/Belhassen%20Jouini%20cv.pdf"
-            download
-            className="hoverable flex items-center gap-2 rounded-full border border-white/10 px-8 py-3 text-sm font-medium text-text-primary transition-all duration-200 hover:border-white/20 hover:bg-white/[0.03]"
-          >
-            <HiDownload className="h-4 w-4" />
-            Télécharger CV
-          </a>
         </motion.div>
       </div>
 
