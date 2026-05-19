@@ -16,6 +16,45 @@ interface Project {
 
 const projects: Project[] = [
   {
+    title: "Design System BNP Paribas Asset Management",
+    description: `Projet : Migration du Design System vers l'Identité Visuelle BNP Paribas Asset Management
+Type : Alternance - Project Design System & Component Library
+Mon Rôle : UX/UI Designer
+
+🎯 Le Contexte
+En alternance chez BNP Paribas Asset Management, j'ai contribué à la refonte complète du Design System pour aligner tous les produits digitaux sur l'identité visuelle corporate du groupe. Un projet stratégique combinant design system, composants UI et infrastructure interne.
+
+🎨 Contribution Design & Tokens
+• Contribution à la migration du Design System vers l'identité visuelle BNP Paribas Asset Management
+• Conception et définition d'une palette de couleurs cohérente et des tokens UI (espacements, typographie, ombres, etc.)
+• Conception et implémentation d'un système de thématisation (light/dark mode) basé sur des tokens UI réutilisables
+• Harmonisation des tokens à travers tous les produits pour garantir une cohérence visuelle maximale
+
+🛠️ Conception & Évolution des Composants
+• Conception et évolution de composants UI sous Figma, en garantissant leur cohérence et leur scalabilité
+• Documentation détaillée des composants avec spécifications de design et variantes
+• Gestion de la scalabilité des composants face à la croissance du système
+
+⚙️ Intégration & Implémentation
+• Intégration et adaptation des composants dans un environnement Angular, basé sur un framework interne (in-house)
+• Mise en place de composants réutilisables et maintenables en TypeScript/Angular
+• Gestion des dépendances internes et coordination avec les équipes de développement
+
+📦 Distribution & Maintenance
+• Migration des composants vers la charte graphique BNPP et mise à disposition via Storybook
+• Utilisation et gestion de packages internes pour la distribution et la maintenance des composants UI
+• Mise en place d'un workflow de versioning et de publication des composants
+
+✨ Impact & Résultats
+• Amélioration de la cohérence et de la standardisation des interfaces au sein des projets
+• Réduction du temps de développement des nouvelles interfaces grâce aux composants standardisés
+• Augmentation de la maintenabilité et de la scalabilité du système de design`,
+    stack: ["Figma", "Design System", "Angular", "TypeScript", "Storybook", "UI Tokens", "Light/Dark Mode"],
+    role: "UX/UI Designer",
+    image: "/images/BNP1920-1024x576.jpg",
+    link: "#",
+  },
+  {
     title: "MAX – Assistant IA de Soutien et d'Écoute",
     description: `Projet : MAX – Assistant IA de Soutien et d'Écoute
 Type : Projet Académique Complet (UX/UI Design & Développement)
