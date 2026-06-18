@@ -2,11 +2,6 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-
 import { HiOutlineMail } from "react-icons/hi";
 import { FiGithub, FiLinkedin, FiPhone } from "react-icons/fi";
 
@@ -37,6 +32,9 @@ const socialLinks = [
   },
 ];
 
+const fieldClass =
+  "w-full border-0 border-b border-line bg-transparent px-0 py-3 font-body text-base text-ink placeholder:text-ink-dim/50 outline-none transition-colors focus:border-accent";
+
 export default function Contact() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -58,14 +56,11 @@ export default function Contact() {
     try {
       const response = await fetch("/api/send-email", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
       let payload: { error?: string; message?: string } | null = null;
-
       try {
         payload = await response.json();
       } catch {
@@ -95,105 +90,104 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative py-32" ref={ref}>
-      <div className="mx-auto max-w-5xl px-6">
+    <section id="contact" className="relative py-28 md:py-40" ref={ref}>
+      <div className="mx-auto max-w-[120rem] px-6 md:px-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="mb-16 text-center"
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-16 flex items-end justify-between border-b border-line pb-5"
         >
-          <p className="mb-3 text-sm font-medium tracking-[0.2em] text-neon uppercase">
-            Contact
-          </p>
-          <h2 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-            Travaillons ensemble
-          </h2>
-          <p className="mx-auto max-w-md text-text-secondary">
-            Vous avez un projet ? N&apos;hésitez pas à me contacter pour en
-            discuter.
-          </p>
+          <span className="kicker">(Contact)</span>
+          <span className="kicker">N° 05</span>
         </motion.div>
 
-        <div className="grid gap-16 md:grid-cols-2">
-          {/* Social links */}
+        <div className="grid grid-cols-1 gap-16 md:grid-cols-12">
+          {/* Statement + social */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{
-              duration: 0.6,
-              delay: 0.2,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-            className="flex flex-col gap-6"
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="md:col-span-6"
           >
-            {socialLinks.map((link, i) => (
-              <motion.a
-                key={link.label}
-                href={link.href}
-                target={link.href.startsWith('http') ? "_blank" : undefined}
-                rel={link.href.startsWith('http') ? "noopener noreferrer" : undefined}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{
-                  duration: 0.5,
-                  delay: 0.3 + i * 0.1,
-                  ease: [0.25, 0.46, 0.45, 0.94],
-                }}
-                className="hoverable group flex items-center gap-4 rounded-full border border-white/6 bg-bg-secondary/30 px-5 py-4 transition-all duration-300 hover:border-neon/20 hover:shadow-[0_0_15px_rgba(0,255,136,0.05)]"
-              >
-                {link.icon ? (
-                  <link.icon className="h-5 w-5 text-neon/70 transition-colors group-hover:text-neon" />
-                ) : (
-                  <span className="h-5 w-5 inline-block" />
-                )}
-                <div>
-                  <p className="text-sm font-medium text-text-primary">
-                    {link.label}
-                  </p>
-                  <p className="text-xs text-text-secondary">{link.display}</p>
-                </div>
-              </motion.a>
-            ))}
+            <h2 className="font-display font-bold text-ink display-lg">
+              Travaillons{" "}
+              <span className="font-serif-display italic text-accent">
+                ensemble
+              </span>
+            </h2>
+            <p className="mt-6 max-w-md text-base leading-relaxed text-ink-dim">
+              Vous avez un projet&nbsp;? N&apos;hésitez pas à me contacter pour
+              en discuter.
+            </p>
+
+            <div className="mt-12 border-t border-line">
+              {socialLinks.map((link, i) => (
+                <motion.a
+                  key={link.label}
+                  href={link.href}
+                  target={link.href.startsWith("http") ? "_blank" : undefined}
+                  rel={
+                    link.href.startsWith("http")
+                      ? "noopener noreferrer"
+                      : undefined
+                  }
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{
+                    duration: 0.5,
+                    delay: 0.25 + i * 0.06,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  className="hoverable group flex items-center justify-between border-b border-line py-4 transition-colors hover:bg-ink/[0.02]"
+                >
+                  <div className="flex items-center gap-4">
+                    <link.icon className="h-4 w-4 text-accent" />
+                    <span className="font-mono text-[0.7rem] uppercase tracking-[0.12em] text-ink-dim">
+                      {link.label}
+                    </span>
+                  </div>
+                  <span className="text-sm text-ink transition-transform duration-300 group-hover:-translate-x-1">
+                    {link.display}
+                  </span>
+                </motion.a>
+              ))}
+            </div>
           </motion.div>
 
           {/* Form */}
           <motion.form
             onSubmit={handleSubmit}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{
-              duration: 0.6,
-              delay: 0.4,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-            className="flex flex-col gap-5"
+            transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col gap-8 md:col-span-6"
           >
             {error && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="rounded-full border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-500"
+              <div
+                role="alert"
+                className="border border-accent bg-accent/10 px-4 py-3 font-mono text-xs text-accent"
               >
                 {error}
-              </motion.div>
+              </div>
             )}
-
             {submitted && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="rounded-full border border-neon/20 bg-neon/10 px-4 py-3 text-sm text-neon"
+              <div
+                role="status"
+                className="border border-ink bg-ink/10 px-4 py-3 font-mono text-xs text-ink"
               >
-                ✓ Message envoyé avec succès ! Je vous répondrai bientôt.
-              </motion.div>
+                ✓ Message envoyé avec succès — je vous répondrai bientôt.
+              </div>
             )}
 
-            <div className="space-y-2">
-              <Label htmlFor="name" className="text-sm text-text-secondary">
-                Nom
-              </Label>
-              <Input
+            <div>
+              <label
+                htmlFor="name"
+                className="kicker mb-2 block text-ink-dim"
+              >
+                01 / Nom
+              </label>
+              <input
                 id="name"
                 placeholder="Votre nom"
                 value={formData.name}
@@ -201,15 +195,18 @@ export default function Contact() {
                   setFormData((prev) => ({ ...prev, name: e.target.value }))
                 }
                 required
-                className="border-white/[0.08] bg-bg-secondary/50 text-text-primary placeholder:text-text-secondary/40 focus:border-neon/30 focus:ring-neon/20"
+                className={fieldClass}
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="email" className="text-sm text-text-secondary">
-                Email
-              </Label>
-              <Input
+            <div>
+              <label
+                htmlFor="email"
+                className="kicker mb-2 block text-ink-dim"
+              >
+                02 / Email
+              </label>
+              <input
                 id="email"
                 type="email"
                 placeholder="votre@email.com"
@@ -218,15 +215,18 @@ export default function Contact() {
                   setFormData((prev) => ({ ...prev, email: e.target.value }))
                 }
                 required
-                className="border-white/[0.08] bg-bg-secondary/50 text-text-primary placeholder:text-text-secondary/40 focus:border-neon/30 focus:ring-neon/20"
+                className={fieldClass}
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="message" className="text-sm text-text-secondary">
-                Message
-              </Label>
-              <Textarea
+            <div>
+              <label
+                htmlFor="message"
+                className="kicker mb-2 block text-ink-dim"
+              >
+                03 / Message
+              </label>
+              <textarea
                 id="message"
                 placeholder="Décrivez votre projet..."
                 value={formData.message}
@@ -235,21 +235,21 @@ export default function Contact() {
                 }
                 required
                 rows={5}
-                className="resize-none  border-white/[0.08] bg-bg-secondary/50 text-text-primary placeholder:text-text-secondary/40 focus:border-neon/30 focus:ring-neon/20"
+                className={`${fieldClass} resize-none`}
               />
             </div>
 
-            <Button
+            <button
               type="submit"
               disabled={isSubmitting}
-              className="hoverable mt-2 w-full rounded-full bg-neon font-semibold text-[#0A0A0A] transition-all duration-200 hover:bg-neon/90 hover:shadow-[0_0_20px_rgba(0,255,136,0.2)] disabled:opacity-50"
+              className="hoverable group mt-2 inline-flex items-center justify-center gap-3 bg-accent px-7 py-4 font-mono text-xs uppercase tracking-[0.14em] text-[#0c0c0b] transition-colors duration-200 hover:bg-ink disabled:opacity-50"
             >
               {isSubmitting
                 ? "Envoi en cours..."
                 : submitted
-                  ? "Message envoyé !"
-                  : "Envoyer le message"}
-            </Button>
+                  ? "Message envoyé ✓"
+                  : "Envoyer le message →"}
+            </button>
           </motion.form>
         </div>
       </div>

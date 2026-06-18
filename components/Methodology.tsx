@@ -42,58 +42,33 @@ const steps = [
   },
 ];
 
-function TimelineStep({
-  step,
-  index,
-}: {
-  step: (typeof steps)[0];
-  index: number;
-}) {
+function Step({ step, index }: { step: (typeof steps)[0]; index: number }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
-  const isLeft = index % 2 === 0;
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 28 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{
-        duration: 0.6,
-        delay: index * 0.15,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      }}
-      className={`relative flex items-center ${
-        isLeft ? "md:flex-row" : "md:flex-row-reverse"
-      } flex-row`}
+      transition={{ duration: 0.6, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
+      className="hoverable group relative grid grid-cols-1 gap-4 border-b border-line py-8 transition-colors hover:bg-ink/[0.02] md:grid-cols-12 md:items-center md:gap-8 md:py-10 md:pl-12"
     >
-      {/* Content */}
-      <div
-        className={`w-full pl-12 md:w-1/2 md:pl-0 ${
-          isLeft ? "md:pr-16 md:text-right" : "md:pl-16 md:text-left"
-        }`}
+      {/* Giant outlined numeral */}
+      <span
+        className="font-display text-6xl font-extrabold leading-none text-transparent transition-all duration-500 group-hover:text-accent md:col-span-3 md:text-8xl"
+        style={{ WebkitTextStroke: "1px var(--color-ink-dim)" }}
       >
-        <span className="mb-2 block text-sm font-medium text-neon">
-          {step.number}
-        </span>
-        <h3 className="mb-2 text-xl font-semibold text-text-primary">
-          {step.title}
-        </h3>
-        <p className="text-sm leading-relaxed text-text-secondary">
-          {step.description}
-        </p>
-      </div>
+        {step.number}
+      </span>
 
-      {/* Center dot (visible only on desktop) */}
-      <div className="absolute left-0 top-2 flex h-8 w-8 items-center justify-center md:static md:left-auto">
-        <div className="relative flex h-8 w-8 shrink-0 items-center justify-center">
-          <div className="absolute h-3 w-3 rounded-full bg-neon shadow-[0_0_10px_rgba(0,255,136,0.3)]" />
-          <div className="h-8 w-8 rounded-full border border-neon/20" />
-        </div>
-      </div>
+      <h3 className="font-display text-2xl font-semibold text-ink md:col-span-4 md:text-3xl">
+        {step.title}
+      </h3>
 
-      {/* Empty space for other side */}
-      <div className="hidden w-1/2 md:block" />
+      <p className="max-w-md text-sm leading-relaxed text-ink-dim md:col-span-5 md:text-base">
+        {step.description}
+      </p>
     </motion.div>
   );
 }
@@ -113,36 +88,37 @@ export default function Methodology() {
   return (
     <section
       id="methodologie"
-      className="relative min-h-screen py-32"
+      className="relative py-28 md:py-40"
       ref={sectionRef}
     >
-      <div className="mx-auto max-w-5xl px-6">
+      <div className="mx-auto max-w-[120rem] px-6 md:px-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="mb-20 text-center"
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-16 flex items-end justify-between border-b border-line pb-5"
         >
-          <p className="mb-3 text-sm font-medium tracking-[0.2em] text-neon uppercase">
-            Méthodologie
-          </p>
-          <h2 className="text-3xl font-bold text-text-primary md:text-4xl">
-            Mon processus
-          </h2>
+          <div>
+            <span className="kicker">(Méthodologie)</span>
+            <h2 className="mt-4 font-display font-bold text-ink display-md">
+              Mon processus
+            </h2>
+          </div>
+          <span className="kicker">N° 03</span>
         </motion.div>
 
         <div ref={containerRef} className="relative">
-          {/* Vertical line - mobile: left, desktop: center */}
-          <div className="absolute top-0 left-4 h-full w-px bg-white/[0.06] md:left-1/2 md:-translate-x-1/2">
+          {/* Progress line (desktop) */}
+          <div className="absolute top-0 left-4 hidden h-full w-px bg-line md:block">
             <motion.div
               style={{ height: lineHeight }}
-              className="w-full bg-gradient-to-b from-neon/50 to-neon/10"
+              className="w-full bg-accent"
             />
           </div>
 
-          <div className="flex flex-col gap-16">
+          <div>
             {steps.map((step, i) => (
-              <TimelineStep key={step.number} step={step} index={i} />
+              <Step key={step.number} step={step} index={i} />
             ))}
           </div>
         </div>
