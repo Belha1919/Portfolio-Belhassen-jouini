@@ -4,17 +4,6 @@ import { motion, type Variants } from "framer-motion";
 import { HiArrowDown, HiArrowUpRight } from "react-icons/hi2";
 import ProfileImage from "./ProfileImage";
 
-const marqueeItems = [
-  "UX Research",
-  "Design Systems",
-  "UI Design",
-  "Front-End",
-  "Prototypage",
-  "Tokens",
-  "Accessibilité",
-  "Storybook",
-];
-
 const lineReveal: Variants = {
   hidden: { y: "110%" },
   show: (i: number) => ({
@@ -140,28 +129,6 @@ export default function Hero() {
           </div>
         </div>
       </div>
-
-      {/* Marquee strip */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.9 }}
-        className="relative z-10 border-y border-line bg-paper/40 py-4"
-      >
-        <div className="marquee-mask flex overflow-hidden">
-          <div className="animate-marquee flex shrink-0 items-center gap-10 pr-10">
-            {[...marqueeItems, ...marqueeItems].map((item, i) => (
-              <span
-                key={i}
-                className="flex items-center gap-10 font-display text-2xl font-bold whitespace-nowrap text-ink/80 md:text-3xl"
-              >
-                {item}
-                <span className="text-accent">✳</span>
-              </span>
-            ))}
-          </div>
-        </div>
-      </motion.div>
 
       {/* Scroll indicator */}
       <motion.div
