@@ -109,26 +109,25 @@ Navigation Fluide : Création d'une structure front-end solide permettant de nav
   },
 ];
 
-function ProjectRow({
+function ProjectEntry({
   project,
   index,
   onOpen,
-  onHover,
 }: {
   project: Project;
   index: number;
   onOpen: (project: Project) => void;
-  onHover: (index: number | null) => void;
 }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const reversed = index % 2 === 1;
 
   return (
-    <motion.div
+    <motion.article
       ref={ref}
-      initial={{ opacity: 0, y: 28 }}
+      initial={{ opacity: 0, y: 32 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.7, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
       onClick={() => onOpen(project)}
       onKeyDown={(event) => {
         if (event.key === "Enter" || event.key === " ") {
@@ -136,28 +135,50 @@ function ProjectRow({
           onOpen(project);
         }
       }}
-      onMouseEnter={() => onHover(index)}
-      onMouseLeave={() => onHover(null)}
       role="button"
       tabIndex={0}
-      className="hoverable group relative block border-b border-line py-8 transition-colors hover:bg-ink/[0.02] md:py-12"
+      aria-label={`Voir l'étude de cas : ${project.title}`}
+      className="hoverable group grid grid-cols-1 items-center gap-6 border-b border-line py-10 md:grid-cols-2 md:gap-12 md:py-16"
     >
-      <div className="grid grid-cols-1 items-baseline gap-4 md:grid-cols-12 md:gap-8">
-        <span className="font-mono text-xs text-accent md:col-span-1">
-          {String(index + 1).padStart(2, "0")}
+      {/* Screenshot — always visible */}
+      <div
+        className={`relative aspect-[16/10] w-full overflow-hidden border border-line ${
+          reversed ? "md:order-2" : "md:order-1"
+        }`}
+      >
+        <Image
+          src={project.image}
+          alt={`Aperçu du projet ${project.title}`}
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-cover grayscale transition-all duration-700 ease-out group-hover:scale-[1.03] group-hover:grayscale-0"
+          unoptimized
+        />
+        {/* Index badge */}
+        <span className="absolute left-0 top-0 bg-accent px-3 py-1.5 font-mono text-xs font-semibold text-[#0c0c0b]">
+          {String(index + 1).padStart(2, "0")} / 0{projects.length}
         </span>
-
-        <div className="md:col-span-7">
-          <h3 className="font-display text-2xl font-semibold text-ink transition-transform duration-300 group-hover:translate-x-2 md:text-4xl">
-            {project.title}
-          </h3>
-          <p className="mt-2 font-mono text-[0.7rem] uppercase tracking-[0.12em] text-ink-dim">
-            {project.role}
-          </p>
+        {/* Hover scrim + cue */}
+        <div className="absolute inset-0 flex items-end justify-end bg-gradient-to-t from-[#0c0c0b]/50 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <span className="m-4 inline-flex items-center gap-2 border border-ink bg-paper/80 px-3 py-1.5 font-mono text-[0.65rem] uppercase tracking-[0.12em] text-ink backdrop-blur-sm">
+            Étude de cas
+            <HiArrowUpRight className="h-3.5 w-3.5" />
+          </span>
         </div>
+      </div>
 
-        <div className="flex flex-wrap gap-2 md:col-span-3">
-          {project.stack.slice(0, 3).map((tech) => (
+      {/* Content */}
+      <div className={reversed ? "md:order-1" : "md:order-2"}>
+        <span className="kicker text-accent">{project.role}</span>
+        <h3 className="mt-3 font-display text-3xl font-semibold leading-[1.05] text-ink transition-colors duration-300 group-hover:text-accent md:text-4xl">
+          {project.title}
+        </h3>
+        <p className="mt-4 line-clamp-3 max-w-md text-sm leading-relaxed text-ink-dim md:text-base">
+          {project.description}
+        </p>
+
+        <div className="mt-6 flex flex-wrap gap-2">
+          {project.stack.slice(0, 4).map((tech) => (
             <span
               key={tech}
               className="border border-line px-2.5 py-1 font-mono text-[0.62rem] uppercase tracking-[0.08em] text-ink-dim"
@@ -167,23 +188,12 @@ function ProjectRow({
           ))}
         </div>
 
-        <div className="md:col-span-1 md:justify-self-end">
-          <HiArrowUpRight className="h-6 w-6 text-ink-dim transition-all duration-300 group-hover:text-accent group-hover:translate-x-1 group-hover:-translate-y-1" />
-        </div>
+        <span className="mt-7 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-ink">
+          Voir le projet
+          <HiArrowUpRight className="h-4 w-4 text-accent transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+        </span>
       </div>
-
-      {/* Inline image reveal (mobile/tablet) */}
-      <div className="mt-5 aspect-video w-full overflow-hidden border border-line md:hidden">
-        <Image
-          src={project.image}
-          alt={project.title}
-          width={800}
-          height={450}
-          className="h-full w-full object-cover grayscale"
-          unoptimized
-        />
-      </div>
-    </motion.div>
+    </motion.article>
   );
 }
 
@@ -191,7 +201,6 @@ export default function Projects() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   useEffect(() => {
     const onEscape = (event: KeyboardEvent) => {
@@ -212,7 +221,7 @@ export default function Projects() {
             initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="mb-12 flex items-end justify-between border-b border-line pb-5"
+            className="mb-4 flex items-end justify-between border-b border-line pb-5"
           >
             <div>
               <span className="kicker">(Projets sélectionnés)</span>
@@ -223,41 +232,15 @@ export default function Projects() {
             <span className="kicker">N° 04</span>
           </motion.div>
 
-          {/* Floating hover preview (desktop) */}
-          <div className="relative">
-            <AnimatePresence>
-              {hoveredIndex !== null && (
-                <motion.div
-                  key={hoveredIndex}
-                  initial={{ opacity: 0, scale: 0.96 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.96 }}
-                  transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                  className="pointer-events-none absolute top-1/2 left-1/2 z-20 hidden h-64 w-96 -translate-x-1/2 -translate-y-1/2 overflow-hidden border border-accent shadow-2xl md:block"
-                >
-                  <Image
-                    src={projects[hoveredIndex].image}
-                    alt={projects[hoveredIndex].title}
-                    fill
-                    sizes="24rem"
-                    className="object-cover"
-                    unoptimized
-                  />
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            <div className="border-t border-line">
-              {projects.map((project, i) => (
-                <ProjectRow
-                  key={project.title}
-                  project={project}
-                  index={i}
-                  onOpen={setSelectedProject}
-                  onHover={setHoveredIndex}
-                />
-              ))}
-            </div>
+          <div className="border-t border-line">
+            {projects.map((project, i) => (
+              <ProjectEntry
+                key={project.title}
+                project={project}
+                index={i}
+                onOpen={setSelectedProject}
+              />
+            ))}
           </div>
         </div>
       </section>
