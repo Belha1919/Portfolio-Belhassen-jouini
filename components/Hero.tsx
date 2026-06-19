@@ -1,8 +1,20 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { HiArrowDown } from "react-icons/hi";
+import { motion, type Variants } from "framer-motion";
+import { HiArrowDown, HiArrowUpRight } from "react-icons/hi2";
 import ProfileImage from "./ProfileImage";
+
+const lineReveal: Variants = {
+  hidden: { y: "110%" },
+  show: (i: number) => ({
+    y: "0%",
+    transition: {
+      duration: 0.85,
+      delay: 0.15 + i * 0.08,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  }),
+};
 
 export default function Hero() {
   const handleScrollToProjects = () => {
@@ -13,60 +25,109 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative flex min-h-screen items-center justify-center overflow-hidden"
+      className="relative flex min-h-screen flex-col justify-between overflow-hidden pt-28 pb-0"
     >
-      {/* Animated gradient background */}
-      <div className="animate-gradient absolute inset-0 bg-gradient-to-br from-[#0A0A0A] via-[#0d1a12] to-[#0A0A0A] bg-[length:400%_400%]" />
+      <div className="grid-bg pointer-events-none absolute inset-0 opacity-60" />
 
-      {/* Grid overlay */}
-      <div className="grid-bg absolute inset-0" />
+      {/* Top meta row */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="relative z-10 mx-auto flex w-full max-w-[120rem] items-center justify-between px-6 md:px-10"
+      >
+        <span className="kicker">Portfolio — 2026</span>
+        <span className="kicker hidden sm:block">
+          UX/UI · Design System · Front-End
+        </span>
+        <span className="kicker">N° 01</span>
+      </motion.div>
 
-      {/* Subtle radial glow */}
-      <div className="absolute top-1/2 left-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-neon/[0.03] blur-[120px]" />
+      {/* Main editorial block */}
+      <div className="relative z-10 mx-auto grid w-full max-w-[120rem] grid-cols-1 items-end gap-10 px-6 py-10 md:grid-cols-12 md:px-10">
+        {/* Headline */}
+        <div className="md:col-span-8">
+          <h1 className="font-display font-extrabold text-ink display-xl">
+            <span className="block overflow-hidden">
+              <motion.span
+                variants={lineReveal}
+                initial="hidden"
+                animate="show"
+                custom={0}
+                className="block"
+              >
+                Belhassen
+              </motion.span>
+            </span>
+            <span className="block overflow-hidden">
+              <motion.span
+                variants={lineReveal}
+                initial="hidden"
+                animate="show"
+                custom={1}
+                className="block"
+              >
+                Jouini
+                <span className="font-serif-display italic text-accent">.</span>
+              </motion.span>
+            </span>
+          </h1>
 
-      <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
-        {/* Profile Image with Badge */}
-        <ProfileImage 
-          src="/images/profile.png"
-          alt="Belhassen Jouini - UX/UI – Design System & Front-End Developer"
-          size={200}
-          badgeText="Bonjour"
-        />
+          <div className="mt-8 overflow-hidden">
+            <motion.p
+              variants={lineReveal}
+              initial="hidden"
+              animate="show"
+              custom={2}
+              className="max-w-xl text-base leading-relaxed text-ink-dim md:text-lg"
+            >
+              Je conçois et{" "}
+              <span className="font-serif-display italic text-ink">
+                développe
+              </span>{" "}
+              des systèmes de design et des interfaces — du token Figma au
+              composant en production.
+            </motion.p>
+          </div>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="mb-4 text-sm font-medium tracking-[0.2em] text-neon uppercase"
-        >
-          UX/UI – Design System & Front-End Developer
-        </motion.p>
-
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="mb-6 text-5xl font-bold tracking-tight text-text-primary sm:text-6xl md:text-7xl lg:text-8xl"
-        >
-          Belhassen Jouini
-        </motion.h1>
-
-
-
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="flex flex-col items-center justify-center gap-4 sm:flex-row"
-        >
-          <button
-            onClick={handleScrollToProjects}
-            className="hoverable rounded-full bg-neon px-8 py-3 text-sm font-semibold text-[#0A0A0A] transition-all duration-200 hover:shadow-[0_0_20px_rgba(0,255,136,0.2)]"
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center"
           >
-            Voir les projets
-          </button>
-        </motion.div>
+            <button
+              onClick={handleScrollToProjects}
+              className="hoverable group inline-flex items-center gap-3 bg-accent px-7 py-3.5 font-mono text-xs uppercase tracking-[0.14em] text-[#0c0c0b] transition-colors duration-200 hover:bg-ink"
+            >
+              Voir les projets
+              <HiArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </button>
+            <a
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                document
+                  .getElementById("contact")
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="hoverable font-mono text-xs uppercase tracking-[0.14em] text-ink underline-kinetic"
+            >
+              Me contacter
+            </a>
+          </motion.div>
+        </div>
+
+        {/* Portrait */}
+        <div className="md:col-span-4">
+          <div className="mx-auto max-w-[20rem] md:ml-auto md:mr-0">
+            <ProfileImage
+              src="/images/profile.png"
+              alt="Belhassen Jouini — UX/UI Design System & Front-End Developer"
+              badgeText="Disponible"
+            />
+          </div>
+        </div>
       </div>
 
       {/* Scroll indicator */}
@@ -74,29 +135,16 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2, duration: 0.8 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
+        className="relative z-10 mx-auto flex w-full max-w-[120rem] items-center justify-between px-6 py-5 md:px-10"
       >
+        <span className="kicker">Scroll pour explorer</span>
         <motion.div
-          animate={{ y: [0, 8, 0] }}
+          animate={{ y: [0, 6, 0] }}
           transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-          className="flex flex-col items-center gap-2"
         >
-          <span className="text-xs tracking-widest text-text-secondary/60 uppercase">
-            Scroll
-          </span>
-          <HiArrowDown className="h-4 w-4 text-neon/60" />
+          <HiArrowDown className="h-4 w-4 text-accent" />
         </motion.div>
       </motion.div>
-
-      <style jsx>{`
-        @keyframes gradient {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-        }
-        .animate-gradient {
-          animation: gradient 15s ease infinite;
-        }
-      `}</style>
     </section>
   );
 }

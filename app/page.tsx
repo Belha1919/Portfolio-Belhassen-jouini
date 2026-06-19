@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <SmoothScroll>
       <CustomCursor />
-      <div className="grid-bg relative min-h-screen bg-bg-primary">
+      <div className="grain relative min-h-screen bg-paper">
         <Navbar />
         <main>
           <Hero />

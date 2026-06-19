@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { HiArrowUpRight } from "react-icons/hi2";
@@ -109,7 +109,7 @@ Navigation Fluide : Création d'une structure front-end solide permettant de nav
   },
 ];
 
-function ProjectCard({
+function ProjectEntry({
   project,
   index,
   onOpen,
@@ -120,17 +120,14 @@ function ProjectCard({
 }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const reversed = index % 2 === 1;
 
   return (
-    <motion.div
+    <motion.article
       ref={ref}
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 32 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{
-        duration: 0.6,
-        delay: index * 0.15,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      }}
+      transition={{ duration: 0.7, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
       onClick={() => onOpen(project)}
       onKeyDown={(event) => {
         if (event.key === "Enter" || event.key === " ") {
@@ -140,62 +137,63 @@ function ProjectCard({
       }}
       role="button"
       tabIndex={0}
-      className="hoverable group overflow-hidden rounded-xl border border-white/[0.06] bg-bg-secondary/30 transition-all duration-300 hover:border-neon/15 hover:shadow-[0_0_20px_rgba(0,255,136,0.04)]"
+      aria-label={`Voir l'étude de cas : ${project.title}`}
+      className="hoverable group grid grid-cols-1 items-center gap-6 border-b border-line py-10 md:grid-cols-2 md:gap-12 md:py-16"
     >
-      {/* Image */}
-      <div className="relative aspect-video overflow-hidden bg-bg-secondary">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#0A0A0A]/60" />
-        {project.image ? (
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-            sizes="(max-width: 768px) 100vw, 50vw"
-            unoptimized
-          />
-        ) : null}
+      {/* Screenshot — always visible */}
+      <div
+        className={`relative aspect-[16/10] w-full overflow-hidden border border-line ${
+          reversed ? "md:order-2" : "md:order-1"
+        }`}
+      >
+        <Image
+          src={project.image}
+          alt={`Aperçu du projet ${project.title}`}
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-cover grayscale transition-all duration-700 ease-out group-hover:scale-[1.03] group-hover:grayscale-0"
+          unoptimized
+        />
+        {/* Index badge */}
+        <span className="absolute left-0 top-0 bg-accent px-3 py-1.5 font-mono text-xs font-semibold text-[#0c0c0b]">
+          {String(index + 1).padStart(2, "0")} / 0{projects.length}
+        </span>
+        {/* Hover scrim + cue */}
+        <div className="absolute inset-0 flex items-end justify-end bg-gradient-to-t from-[#0c0c0b]/50 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <span className="m-4 inline-flex items-center gap-2 border border-ink bg-paper/80 px-3 py-1.5 font-mono text-[0.65rem] uppercase tracking-[0.12em] text-ink backdrop-blur-sm">
+            Étude de cas
+            <HiArrowUpRight className="h-3.5 w-3.5" />
+          </span>
+        </div>
       </div>
 
       {/* Content */}
-      <div className="p-6">
-        <div className="mb-3 flex items-start justify-between">
-          <h3 className="text-lg font-semibold text-text-primary">
-            {project.title}
-          </h3>
-          <button
-            type="button"
-            onClick={(event) => {
-              event.stopPropagation();
-              onOpen(project);
-            }}
-            className="hoverable rounded-full border border-white/10 p-2 text-text-secondary transition-all duration-200 hover:border-neon/30 hover:text-neon"
-            aria-label={`Voir ${project.title}`}
-          >
-            <HiArrowUpRight className="h-4 w-4" />
-          </button>
-        </div>
-
-        <p className="mb-4 line-clamp-2 text-sm leading-relaxed text-text-secondary">
+      <div className={reversed ? "md:order-1" : "md:order-2"}>
+        <span className="kicker text-accent">{project.role}</span>
+        <h3 className="mt-3 font-display text-3xl font-semibold leading-[1.05] text-ink transition-colors duration-300 group-hover:text-accent md:text-4xl">
+          {project.title}
+        </h3>
+        <p className="mt-4 line-clamp-3 max-w-md text-sm leading-relaxed text-ink-dim md:text-base">
           {project.description}
         </p>
 
-        <p className="mb-3 text-xs text-text-secondary/70">
-          {project.role}
-        </p>
-
-        <div className="flex flex-wrap gap-2">
-          {project.stack.map((tech) => (
+        <div className="mt-6 flex flex-wrap gap-2">
+          {project.stack.slice(0, 4).map((tech) => (
             <span
               key={tech}
-              className="rounded-md bg-white/[0.04] px-2.5 py-1 text-xs text-text-secondary"
+              className="border border-line px-2.5 py-1 font-mono text-[0.62rem] uppercase tracking-[0.08em] text-ink-dim"
             >
               {tech}
             </span>
           ))}
         </div>
+
+        <span className="mt-7 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-ink">
+          Voir le projet
+          <HiArrowUpRight className="h-4 w-4 text-accent transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+        </span>
       </div>
-    </motion.div>
+    </motion.article>
   );
 }
 
@@ -217,85 +215,93 @@ export default function Projects() {
 
   return (
     <>
-      <section id="projets" className="relative min-h-screen py-32" ref={ref}>
-        <div className="mx-auto max-w-6xl px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="mb-20"
-        >
-          <p className="mb-3 text-sm font-medium tracking-[0.2em] text-neon uppercase">
-            Projets
-          </p>
-          <h2 className="text-3xl font-bold text-text-primary md:text-4xl">
-            Travaux récents
-          </h2>
-        </motion.div>
+      <section id="projets" className="relative py-28 md:py-40" ref={ref}>
+        <div className="mx-auto max-w-[120rem] px-6 md:px-10">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="mb-4 flex items-end justify-between border-b border-line pb-5"
+          >
+            <div>
+              <span className="kicker">(Projets sélectionnés)</span>
+              <h2 className="mt-4 font-display font-bold text-ink display-md">
+                Travaux récents
+              </h2>
+            </div>
+            <span className="kicker">N° 04</span>
+          </motion.div>
 
-        <div className="grid gap-8 md:grid-cols-2">
-          {projects.map((project, i) => (
-            <ProjectCard
-              key={project.title}
-              project={project}
-              index={i}
-              onOpen={setSelectedProject}
-            />
-          ))}
-        </div>
+          <div className="border-t border-line">
+            {projects.map((project, i) => (
+              <ProjectEntry
+                key={project.title}
+                project={project}
+                index={i}
+                onOpen={setSelectedProject}
+              />
+            ))}
+          </div>
         </div>
       </section>
 
-      {selectedProject ? (
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 px-4 py-8 backdrop-blur-sm"
-          onClick={() => setSelectedProject(null)}
-          role="dialog"
-          aria-modal="true"
-          aria-label={`Details du projet ${selectedProject.title}`}
-        >
-          <div
-            data-lenis-prevent
-            data-lenis-prevent-wheel
-            data-lenis-prevent-touch
-            className="max-h-[90vh] w-full max-w-4xl overflow-y-auto overscroll-contain rounded-2xl border border-white/10 bg-[#111214] p-5 touch-pan-y sm:p-6"
-            onClick={(event) => event.stopPropagation()}
-            onWheel={(event) => event.stopPropagation()}
+      {/* Detail modal */}
+      <AnimatePresence>
+        {selectedProject ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 px-4 py-8 backdrop-blur-sm"
+            onClick={() => setSelectedProject(null)}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Details du projet ${selectedProject.title}`}
           >
-            <div className="mb-4 flex items-start justify-between gap-4">
-              <div>
-                <p className="mb-2 text-xs font-medium tracking-[0.16em] text-neon uppercase">
-                  Details du projet
-                </p>
-                <h3 className="text-xl font-bold text-text-primary sm:text-2xl">
-                  {selectedProject.title}
-                </h3>
-                <p className="mt-2 text-sm text-text-secondary/80">
-                  {selectedProject.role}
-                </p>
-                {selectedProject.link !== "#" ? (
-                  <a
-                    href={selectedProject.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-3 inline-flex items-center gap-2 rounded-md border border-neon/35 px-3 py-1.5 text-sm text-neon transition-colors hover:border-neon hover:bg-neon/10"
-                  >
-                    Voir sur Figma
-                    <HiArrowUpRight className="h-4 w-4" />
-                  </a>
-                ) : null}
+            <motion.div
+              initial={{ opacity: 0, y: 24, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 16, scale: 0.98 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              data-lenis-prevent
+              data-lenis-prevent-wheel
+              data-lenis-prevent-touch
+              className="max-h-[90vh] w-full max-w-4xl touch-pan-y overflow-y-auto overscroll-contain border border-line bg-paper-raised p-5 sm:p-8"
+              onClick={(event) => event.stopPropagation()}
+              onWheel={(event) => event.stopPropagation()}
+            >
+              <div className="mb-5 flex items-start justify-between gap-4 border-b border-line pb-5">
+                <div>
+                  <span className="kicker">Étude de cas</span>
+                  <h3 className="mt-3 font-display text-2xl font-bold text-ink sm:text-3xl">
+                    {selectedProject.title}
+                  </h3>
+                  <p className="mt-2 font-mono text-[0.7rem] uppercase tracking-[0.12em] text-ink-dim">
+                    {selectedProject.role}
+                  </p>
+                  {selectedProject.link !== "#" ? (
+                    <a
+                      href={selectedProject.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hoverable mt-4 inline-flex items-center gap-2 border border-accent px-3 py-1.5 font-mono text-xs uppercase tracking-[0.12em] text-accent transition-colors hover:bg-accent hover:text-[#0c0c0b]"
+                    >
+                      Voir sur Figma
+                      <HiArrowUpRight className="h-4 w-4" />
+                    </a>
+                  ) : null}
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setSelectedProject(null)}
+                  className="hoverable shrink-0 border border-line px-3 py-1.5 font-mono text-xs uppercase tracking-[0.12em] text-ink-dim transition-colors hover:border-accent hover:text-accent"
+                >
+                  Fermer ✕
+                </button>
               </div>
-              <button
-                type="button"
-                onClick={() => setSelectedProject(null)}
-                className="rounded-md border border-white/15 px-3 py-1.5 text-sm text-text-secondary transition-colors hover:border-neon/40 hover:text-neon"
-              >
-                Fermer
-              </button>
-            </div>
 
-            <div className="relative mb-5 aspect-video overflow-hidden rounded-xl bg-bg-secondary">
-              {selectedProject.image ? (
+              <div className="relative mb-6 aspect-video overflow-hidden border border-line">
                 <Image
                   src={selectedProject.image}
                   alt={selectedProject.title}
@@ -304,26 +310,26 @@ export default function Projects() {
                   sizes="(max-width: 1024px) 100vw, 960px"
                   unoptimized
                 />
-              ) : null}
-            </div>
+              </div>
 
-            <p className="mb-5 whitespace-pre-line text-sm leading-relaxed text-text-secondary sm:text-base">
-              {selectedProject.description}
-            </p>
+              <p className="mb-6 text-sm leading-relaxed whitespace-pre-line text-ink-dim sm:text-base">
+                {selectedProject.description}
+              </p>
 
-            <div className="flex flex-wrap gap-2">
-              {selectedProject.stack.map((tech) => (
-                <span
-                  key={tech}
-                  className="rounded-md bg-white/[0.05] px-3 py-1.5 text-xs text-text-secondary"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      ) : null}
+              <div className="flex flex-wrap gap-2 border-t border-line pt-5">
+                {selectedProject.stack.map((tech) => (
+                  <span
+                    key={tech}
+                    className="border border-line px-3 py-1.5 font-mono text-[0.65rem] uppercase tracking-[0.08em] text-ink-dim"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </>
   );
 }
