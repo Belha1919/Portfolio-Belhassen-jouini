@@ -67,7 +67,7 @@ export default function ProfileImage({
             Fig. 01
           </span>
           <span className="font-mono text-[0.6rem] uppercase tracking-[0.18em] text-ink-dim">
-            Tunis · FR
+            Île de France
           </span>
         </div>
       </div>
