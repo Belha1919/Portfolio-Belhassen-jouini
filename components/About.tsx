@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
 import { useRef } from "react";
 import {
   HiOutlineSearch,
@@ -48,8 +48,38 @@ function SkillItem({
   inView: boolean;
 }) {
   const Icon = skill.icon;
+  const ref = useRef<HTMLDivElement>(null);
+
+  // 3D tilt + magnetic motion values
+  const rotateX = useSpring(useMotionValue(0), { stiffness: 250, damping: 18 });
+  const rotateY = useSpring(useMotionValue(0), { stiffness: 250, damping: 18 });
+  const magX = useSpring(useMotionValue(0), { stiffness: 300, damping: 20 });
+  const magY = useSpring(useMotionValue(0), { stiffness: 300, damping: 20 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const el = ref.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 .. 0.5
+    const py = (e.clientY - rect.top) / rect.height - 0.5;
+    rotateY.set(px * 16);
+    rotateX.set(-py * 16);
+    magX.set(px * 14);
+    magY.set(py * 8);
+  };
+
+  const reset = () => {
+    rotateX.set(0);
+    rotateY.set(0);
+    magX.set(0);
+    magY.set(0);
+  };
+
   return (
     <motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={reset}
       initial={{ opacity: 0, x: -16 }}
       animate={inView ? { opacity: 1, x: 0 } : {}}
       transition={{
@@ -57,17 +87,28 @@ function SkillItem({
         delay: 0.15 + index * 0.07,
         ease: [0.16, 1, 0.3, 1],
       }}
-      className="hoverable group relative flex items-center gap-4 overflow-hidden border-b border-line py-5"
+      style={{
+        rotateX,
+        rotateY,
+        transformPerspective: 700,
+        transformStyle: "preserve-3d",
+      }}
+      className="hoverable group relative flex items-center gap-4 overflow-hidden border-b border-line py-5 will-change-transform hover:z-10 hover:border-transparent hover:shadow-[0_18px_40px_-18px_rgba(255,74,28,0.45)]"
     >
       {/* Accent sweep fill */}
       <span
         aria-hidden
         className="absolute inset-0 origin-left scale-x-0 bg-accent transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100"
       />
-      <Icon className="relative z-10 h-6 w-6 shrink-0 text-accent transition-all duration-300 group-hover:scale-110 group-hover:text-[#0c0c0b]" />
-      <span className="relative z-10 font-display text-xl font-semibold text-ink transition-all duration-300 group-hover:translate-x-1 group-hover:text-[#0c0c0b] md:text-2xl">
-        {skill.label}
-      </span>
+      <motion.span
+        style={{ x: magX, y: magY, translateZ: 40 }}
+        className="relative z-10 flex items-center gap-4"
+      >
+        <Icon className="h-6 w-6 shrink-0 text-accent transition-all duration-300 group-hover:scale-125 group-hover:rotate-6 group-hover:text-[#0c0c0b]" />
+        <span className="font-display text-xl font-semibold text-ink transition-colors duration-300 group-hover:text-[#0c0c0b] md:text-2xl">
+          {skill.label}
+        </span>
+      </motion.span>
       <span className="relative z-10 ml-auto font-mono text-[0.7rem] tracking-[0.12em] text-ink-dim transition-colors duration-300 group-hover:text-[#0c0c0b]/70">
         {String(index + 1).padStart(2, "0")}
       </span>
