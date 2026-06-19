@@ -1,10 +1,36 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import {
+  Bricolage_Grotesque,
+  Instrument_Serif,
+  Hanken_Grotesk,
+  JetBrains_Mono,
+} from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
+const display = Bricolage_Grotesque({
   subsets: ["latin"],
-  variable: "--font-geist-sans",
+  variable: "--font-display",
+  display: "swap",
+});
+
+const serif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-serif",
+  display: "swap",
+});
+
+const body = Hanken_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-body",
+  display: "swap",
+});
+
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -35,7 +61,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" className="scroll-smooth" suppressHydrationWarning>
-      <body className={`${inter.variable} relative font-sans antialiased`}>
+      <body
+        className={`${display.variable} ${serif.variable} ${body.variable} ${mono.variable} relative font-sans antialiased`}
+      >
         {children}
       </body>
     </html>
