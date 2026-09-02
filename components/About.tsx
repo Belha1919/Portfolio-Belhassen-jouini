@@ -176,12 +176,13 @@ export default function About() {
             <span className="font-serif-display italic text-accent">code</span>.
           </h2>
           <p className="mt-8 max-w-2xl text-base leading-relaxed text-ink-dim md:text-lg">
-            Spécialisé en UX/UI, je me concentre sur la création de systèmes de
-            design robustes et évolutifs. Je fais le pont entre le design et
-            l&apos;intégration front-end pour transformer des problématiques
-            complexes en interfaces fluides. Mon objectif&nbsp;: livrer des
-            produits digitaux qui allient exigence esthétique et rigueur
-            technique.
+            Designer UX/UI et développeur front-end, je conçois et je
+            développe des Design Systems de bout en bout&nbsp;: tokens et
+            composants sous Figma, développement en Angular, documentation
+            Storybook et distribution en packages versionnés. Expérience en
+            environnement corporate exigeant (BNP Paribas Asset Management,
+            AXA Investment Managers) sur des socles UI utilisés par une
+            vingtaine d&apos;applications métier.
           </p>
         </motion.div>
 

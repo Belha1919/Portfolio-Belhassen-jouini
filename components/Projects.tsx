@@ -18,39 +18,35 @@ const projects: Project[] = [
   {
     title: "Design System BNP Paribas Asset Management",
     description: `Projet : Migration du Design System vers l'Identité Visuelle BNP Paribas Asset Management
-Type : Alternance - Project Design System & Component Library
-Mon Rôle : UX/UI Designer
+Type : Alternance UX/UI Designer & Front-End — 10/2025 – 08/2026
+Mon Rôle : UX/UI Designer & Front-End Developer
 
 🎯 Le Contexte
-En alternance chez BNP Paribas Asset Management, j'ai contribué à la refonte complète du Design System pour aligner tous les produits digitaux sur l'identité visuelle corporate du groupe. Un projet stratégique combinant design system, composants UI et infrastructure interne.
+En alternance chez BNP Paribas Asset Management, je conçois et développe des composants UI du Design System, distribués via le framework front-end interne ngfx et utilisés par une vingtaine d'applications métier.
 
 🎨 Contribution Design & Tokens
-• Contribution à la migration du Design System vers l'identité visuelle BNP Paribas Asset Management
-• Conception et définition d'une palette de couleurs cohérente et des tokens UI (espacements, typographie, ombres, etc.)
-• Conception et implémentation d'un système de thématisation (light/dark mode) basé sur des tokens UI réutilisables
+• Migration du Design System vers l'identité visuelle BNP Paribas Asset Management : refonte de la palette et de l'architecture de tokens UI
+• Conception et développement d'un système de thématisation light / dark reposant sur les design tokens
 • Harmonisation des tokens à travers tous les produits pour garantir une cohérence visuelle maximale
 
 🛠️ Conception & Évolution des Composants
-• Conception et évolution de composants UI sous Figma, en garantissant leur cohérence et leur scalabilité
-• Documentation détaillée des composants avec spécifications de design et variantes
-• Gestion de la scalabilité des composants face à la croissance du système
+• Conception et développement de 24 composants UI du Design System, en garantissant leur cohérence et leur scalabilité
+• Composants développés en Angular / TypeScript au sein du framework interne, avec workflow Git et revue de code
+• Documentation des composants via Storybook, avec spécifications de design et variantes
 
-⚙️ Intégration & Implémentation
-• Intégration et adaptation des composants dans un environnement Angular, basé sur un framework interne (in-house)
-• Mise en place de composants réutilisables et maintenables en TypeScript/Angular
-• Gestion des dépendances internes et coordination avec les équipes de développement
+🤖 Serveur MCP & IA interne
+• Développement d'un serveur MCP connecté à Storybook : les assistants IA internes (chat VS Code) génèrent des pages et des écrans directement à partir des composants du Design System
 
 📦 Distribution & Maintenance
-• Migration des composants vers la charte graphique BNPP et mise à disposition via Storybook
-• Utilisation et gestion de packages internes pour la distribution et la maintenance des composants UI
+• Publication des composants en packages internes versionnés, livrés via Azure DevOps
 • Mise en place d'un workflow de versioning et de publication des composants
 
 ✨ Impact & Résultats
 • Amélioration de la cohérence et de la standardisation des interfaces au sein des projets
 • Réduction du temps de développement des nouvelles interfaces grâce aux composants standardisés
 • Augmentation de la maintenabilité et de la scalabilité du système de design`,
-    stack: ["Figma", "Design System", "Angular", "TypeScript", "Storybook", "UI Tokens", "Light/Dark Mode"],
-    role: "UX/UI Designer",
+    stack: ["Figma", "Design System", "Angular", "TypeScript", "Storybook", "UI Tokens", "Light/Dark Mode", "MCP"],
+    role: "UX/UI Designer & Front-End Developer",
     image: "/images/BNP1920-1024x576.jpg",
     link: "#",
   },

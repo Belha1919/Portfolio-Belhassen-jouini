@@ -34,22 +34,25 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Belhassen Jouini — Full-Stack Designer",
+  title: "Belhassen Jouini — UX/UI Designer & Front-End Developer",
   description:
-    "Portfolio de Belhassen Jouini — Full-Stack Designer spécialisé en UX, UI & Développement. Conception et développement d'expériences digitales performantes.",
+    "Portfolio de Belhassen Jouini — UX/UI Designer & Front-End Developer, spécialisé en Design System (Figma vers Angular / React, Storybook). Expérience en environnement corporate (BNP Paribas Asset Management, AXA Investment Managers).",
   keywords: [
     "Belhassen Jouini",
-    "Full-Stack Designer",
+    "UX/UI Designer",
+    "Front-End Developer",
+    "Design System",
     "UX Design",
     "UI Design",
-    "Développeur",
+    "Angular",
+    "React",
     "Next.js",
     "Portfolio",
   ],
   openGraph: {
-    title: "Belhassen Jouini — Full-Stack Designer",
+    title: "Belhassen Jouini — UX/UI Designer & Front-End Developer",
     description:
-      "Conception et développement d'expériences digitales performantes.",
+      "Design System : Figma vers Angular / React, Storybook. Expérience BNP Paribas Asset Management & AXA Investment Managers.",
     type: "website",
   },
 };
