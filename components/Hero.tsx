@@ -38,7 +38,7 @@ export default function Hero() {
       >
         <span className="kicker">Portfolio — 2026</span>
         <span className="kicker hidden sm:block">
-          UX/UI · Design System · Front-End
+          UX/UI Designer &amp; Front-End Developer
         </span>
         <span className="kicker">N° 01</span>
       </motion.div>
@@ -85,8 +85,9 @@ export default function Hero() {
               <span className="font-serif-display italic text-ink">
                 développe
               </span>{" "}
-              des systèmes de design et des interfaces — du token Figma au
-              composant en production.
+              des Design Systems de bout en bout — tokens et composants sous
+              Figma, développement en Angular / React, documentation
+              Storybook.
             </motion.p>
           </div>
 

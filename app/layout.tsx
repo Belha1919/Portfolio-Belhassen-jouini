@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import {
   Bricolage_Grotesque,
   Instrument_Serif,
@@ -34,22 +35,25 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Belhassen Jouini — Full-Stack Designer",
+  title: "Belhassen Jouini — UX/UI Designer & Front-End Developer",
   description:
-    "Portfolio de Belhassen Jouini — Full-Stack Designer spécialisé en UX, UI & Développement. Conception et développement d'expériences digitales performantes.",
+    "Portfolio de Belhassen Jouini — UX/UI Designer & Front-End Developer, spécialisé en Design System (Figma vers Angular / React, Storybook). Expérience en environnement corporate (BNP Paribas Asset Management, AXA Investment Managers).",
   keywords: [
     "Belhassen Jouini",
-    "Full-Stack Designer",
+    "UX/UI Designer",
+    "Front-End Developer",
+    "Design System",
     "UX Design",
     "UI Design",
-    "Développeur",
+    "Angular",
+    "React",
     "Next.js",
     "Portfolio",
   ],
   openGraph: {
-    title: "Belhassen Jouini — Full-Stack Designer",
+    title: "Belhassen Jouini — UX/UI Designer & Front-End Developer",
     description:
-      "Conception et développement d'expériences digitales performantes.",
+      "Design System : Figma vers Angular / React, Storybook. Expérience BNP Paribas Asset Management & AXA Investment Managers.",
     type: "website",
   },
 };
@@ -65,6 +69,15 @@ export default function RootLayout({
         className={`${display.variable} ${serif.variable} ${body.variable} ${mono.variable} relative font-sans antialiased`}
       >
         {children}
+        <Script id="clarity-analytics" strategy="afterInteractive">
+          {`
+            (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "ybzq3s09tu");
+          `}
+        </Script>
       </body>
     </html>
   );

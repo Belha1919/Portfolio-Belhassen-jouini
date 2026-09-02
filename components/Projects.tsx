@@ -18,41 +18,61 @@ const projects: Project[] = [
   {
     title: "Design System BNP Paribas Asset Management",
     description: `Projet : Migration du Design System vers l'Identité Visuelle BNP Paribas Asset Management
-Type : Alternance - Project Design System & Component Library
-Mon Rôle : UX/UI Designer
+Type : Alternance UX/UI Designer & Front-End — 10/2025 – 08/2026
+Mon Rôle : UX/UI Designer & Front-End Developer
 
 🎯 Le Contexte
-En alternance chez BNP Paribas Asset Management, j'ai contribué à la refonte complète du Design System pour aligner tous les produits digitaux sur l'identité visuelle corporate du groupe. Un projet stratégique combinant design system, composants UI et infrastructure interne.
+En alternance chez BNP Paribas Asset Management, je conçois et développe des composants UI du Design System, distribués via le framework front-end interne ngfx et utilisés par une vingtaine d'applications métier.
 
 🎨 Contribution Design & Tokens
-• Contribution à la migration du Design System vers l'identité visuelle BNP Paribas Asset Management
-• Conception et définition d'une palette de couleurs cohérente et des tokens UI (espacements, typographie, ombres, etc.)
-• Conception et implémentation d'un système de thématisation (light/dark mode) basé sur des tokens UI réutilisables
+• Migration du Design System vers l'identité visuelle BNP Paribas Asset Management : refonte de la palette et de l'architecture de tokens UI
+• Conception et développement d'un système de thématisation light / dark reposant sur les design tokens
 • Harmonisation des tokens à travers tous les produits pour garantir une cohérence visuelle maximale
 
 🛠️ Conception & Évolution des Composants
-• Conception et évolution de composants UI sous Figma, en garantissant leur cohérence et leur scalabilité
-• Documentation détaillée des composants avec spécifications de design et variantes
-• Gestion de la scalabilité des composants face à la croissance du système
+• Conception et développement de 24 composants UI du Design System, en garantissant leur cohérence et leur scalabilité
+• Composants développés en Angular / TypeScript au sein du framework interne, avec workflow Git et revue de code
+• Documentation des composants via Storybook, avec spécifications de design et variantes
 
-⚙️ Intégration & Implémentation
-• Intégration et adaptation des composants dans un environnement Angular, basé sur un framework interne (in-house)
-• Mise en place de composants réutilisables et maintenables en TypeScript/Angular
-• Gestion des dépendances internes et coordination avec les équipes de développement
+🤖 Serveur MCP & IA interne
+• Développement d'un serveur MCP connecté à Storybook : les assistants IA internes (chat VS Code) génèrent des pages et des écrans directement à partir des composants du Design System
 
 📦 Distribution & Maintenance
-• Migration des composants vers la charte graphique BNPP et mise à disposition via Storybook
-• Utilisation et gestion de packages internes pour la distribution et la maintenance des composants UI
+• Publication des composants en packages internes versionnés, livrés via Azure DevOps
 • Mise en place d'un workflow de versioning et de publication des composants
 
 ✨ Impact & Résultats
 • Amélioration de la cohérence et de la standardisation des interfaces au sein des projets
 • Réduction du temps de développement des nouvelles interfaces grâce aux composants standardisés
 • Augmentation de la maintenabilité et de la scalabilité du système de design`,
-    stack: ["Figma", "Design System", "Angular", "TypeScript", "Storybook", "UI Tokens", "Light/Dark Mode"],
-    role: "UX/UI Designer",
+    stack: ["Figma", "Design System", "Angular", "TypeScript", "Storybook", "UI Tokens", "Light/Dark Mode", "MCP"],
+    role: "UX/UI Designer & Front-End Developer",
     image: "/images/BNP1920-1024x576.jpg",
     link: "#",
+  },
+  {
+    title: "AIBA Technologie – Site Web pour Startup IA",
+    description: `Projet : AIBA Technologie – Site vitrine d'une startup spécialisée en IA & solutions digitales
+Type : Projet Web Complet (UX/UI Design & Développement Front-end)
+Mon Rôle : UX/UI Designer & Développeur Front-end
+
+Le Projet
+AIBA Technologie est une startup qui accompagne les entreprises dans leur transformation digitale grâce à des solutions IA (chatbots, agents IA, automatisation) et des produits digitaux (sites vitrines, e-commerce, applications mobiles, SaaS). J'ai conçu et développé le site vitrine complet, bilingue FR/EN, destiné à présenter l'offre et convertir les prospects.
+
+✨ L'approche UX/UI Design
+Identité Visuelle Tech & IA : Interface sombre avec dégradés bleu/violet et effets lumineux (aurora, glow) pour incarner une image innovante et technologique, tout en gardant une hiérarchie de lecture claire.
+Structure orientée conversion : Hero avec proposition de valeur immédiate, double appel à l'action (réserver un appel / demander un devis), sections services (IA & création digitale), références projets, processus en 5 étapes et formulaire de contact.
+Bilingue FR/EN : Système de bascule de langue intégré à l'ensemble du contenu et de la navigation.
+
+💻 L'approche Développement Front-end
+Stack Moderne : Développement avec Next.js, TypeScript et Tailwind CSS, animations et micro-interactions (reveal au scroll, compteurs animés, barre de progression de scroll, spotlight au survol des cartes).
+Navigation avancée : Mise en place d'une navigation "notch" avec scroll-spy pour mettre en évidence la section active.
+Chatbot IA intégré : Intégration d'un widget de chat connecté à un modèle IA local (Ollama), avec repli automatique si le service n'est pas disponible.
+Performance & Accessibilité : Interface responsive, réduction de mouvement respectée (prefers-reduced-motion), SEO optimisé.`,
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "UX/UI Design", "Chatbot IA"],
+    role: "UX/UI Designer & Développeur Front-end",
+    image: "/images/aiba-screenshot.png",
+    link: "https://github.com/Belha1919/aiba-technologie",
   },
   {
     title: "MAX – Assistant IA de Soutien et d'Écoute",
@@ -287,7 +307,11 @@ export default function Projects() {
                       rel="noopener noreferrer"
                       className="hoverable mt-4 inline-flex items-center gap-2 border border-accent px-3 py-1.5 font-mono text-xs uppercase tracking-[0.12em] text-accent transition-colors hover:bg-accent hover:text-[#0c0c0b]"
                     >
-                      Voir sur Figma
+                      {selectedProject.link.includes("figma.com")
+                        ? "Voir sur Figma"
+                        : selectedProject.link.includes("github.com")
+                          ? "Voir sur GitHub"
+                          : "Voir le projet"}
                       <HiArrowUpRight className="h-4 w-4" />
                     </a>
                   ) : null}
