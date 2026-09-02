@@ -51,6 +51,30 @@ En alternance chez BNP Paribas Asset Management, je conçois et développe des c
     link: "#",
   },
   {
+    title: "AIBA Technologie – Site Web pour Startup IA",
+    description: `Projet : AIBA Technologie – Site vitrine d'une startup spécialisée en IA & solutions digitales
+Type : Projet Web Complet (UX/UI Design & Développement Front-end)
+Mon Rôle : UX/UI Designer & Développeur Front-end
+
+Le Projet
+AIBA Technologie est une startup qui accompagne les entreprises dans leur transformation digitale grâce à des solutions IA (chatbots, agents IA, automatisation) et des produits digitaux (sites vitrines, e-commerce, applications mobiles, SaaS). J'ai conçu et développé le site vitrine complet, bilingue FR/EN, destiné à présenter l'offre et convertir les prospects.
+
+✨ L'approche UX/UI Design
+Identité Visuelle Tech & IA : Interface sombre avec dégradés bleu/violet et effets lumineux (aurora, glow) pour incarner une image innovante et technologique, tout en gardant une hiérarchie de lecture claire.
+Structure orientée conversion : Hero avec proposition de valeur immédiate, double appel à l'action (réserver un appel / demander un devis), sections services (IA & création digitale), références projets, processus en 5 étapes et formulaire de contact.
+Bilingue FR/EN : Système de bascule de langue intégré à l'ensemble du contenu et de la navigation.
+
+💻 L'approche Développement Front-end
+Stack Moderne : Développement avec Next.js, TypeScript et Tailwind CSS, animations et micro-interactions (reveal au scroll, compteurs animés, barre de progression de scroll, spotlight au survol des cartes).
+Navigation avancée : Mise en place d'une navigation "notch" avec scroll-spy pour mettre en évidence la section active.
+Chatbot IA intégré : Intégration d'un widget de chat connecté à un modèle IA local (Ollama), avec repli automatique si le service n'est pas disponible.
+Performance & Accessibilité : Interface responsive, réduction de mouvement respectée (prefers-reduced-motion), SEO optimisé.`,
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "UX/UI Design", "Chatbot IA"],
+    role: "UX/UI Designer & Développeur Front-end",
+    image: "/images/aiba-screenshot.png",
+    link: "https://github.com/Belha1919/aiba-technologie",
+  },
+  {
     title: "MAX – Assistant IA de Soutien et d'Écoute",
     description: `Projet : MAX – Assistant IA de Soutien et d'Écoute
 Type : Projet Académique Complet (UX/UI Design & Développement)
@@ -283,7 +307,11 @@ export default function Projects() {
                       rel="noopener noreferrer"
                       className="hoverable mt-4 inline-flex items-center gap-2 border border-accent px-3 py-1.5 font-mono text-xs uppercase tracking-[0.12em] text-accent transition-colors hover:bg-accent hover:text-[#0c0c0b]"
                     >
-                      Voir sur Figma
+                      {selectedProject.link.includes("figma.com")
+                        ? "Voir sur Figma"
+                        : selectedProject.link.includes("github.com")
+                          ? "Voir sur GitHub"
+                          : "Voir le projet"}
                       <HiArrowUpRight className="h-4 w-4" />
                     </a>
                   ) : null}
